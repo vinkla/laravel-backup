@@ -1,0 +1,45 @@
+{
+    "name": "vinkla/backup",
+    "description": "A backup manager for Laravel",
+    "license": "MIT",
+    "keywords": ["laravel", "backup", "database", "flysystem"],
+    "authors": [
+        {
+            "name": "Vincent Klaiber",
+            "email": "hello@vinkla.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "illuminate/contracts": "5.1.* || 5.2.*",
+        "illuminate/support": "5.1.* || 5.2.*",
+        "graham-campbell/manager": "^2.3",
+        "zenstruck/backup": "^1.2",
+        "graham-campbell/flysystem": "^3.3"
+    },
+    "require-dev": {
+        "graham-campbell/testbench": "^3.1",
+        "mockery/mockery": "^0.9.4",
+        "phpunit/phpunit": "^4.8 || ^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vinkla\\Backup\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vinkla\\Tests\\Backup\\": "tests/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
