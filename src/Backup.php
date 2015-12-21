@@ -29,21 +29,29 @@ use Zenstruck\Backup\Source\RsyncSource;
 class Backup
 {
     /**
+     * The profile name.
+     *
      * @var string
      */
     protected $name;
 
     /**
+     * The processor instance.
+     *
      * @var \Zenstruck\Backup\Processor
      */
     protected $processor;
 
     /**
+     * The namer instance.
+     *
      * @var \Zenstruck\Backup\Namer
      */
     protected $namer;
 
     /**
+     * The database instance.
+     *
      * @var \Zenstruck\Backup\Source
      */
     protected $database;
