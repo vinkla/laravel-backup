@@ -12,6 +12,7 @@
 namespace Vinkla\Backup;
 
 use GrahamCampbell\Flysystem\FlysystemManager;
+use Zenstruck\Backup\Destination\FlysystemDestination;
 use Zenstruck\Backup\Destination\StreamDestination;
 use Zenstruck\Backup\Namer;
 use Zenstruck\Backup\Processor;
@@ -141,7 +142,7 @@ class Backup
             if ($filesystem === 'local') {
                 $destination = [new StreamDestination($filesystem, $path)];
             } else {
-                $destination = [new StreamDestination($this->flysystem->connection($filesystem), $path)];
+                $destination = [new FlysystemDestination($this->flysystem->connection($filesystem), $path)];
             }
 
             $destinations[] = $destination;
