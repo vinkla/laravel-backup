@@ -23,11 +23,9 @@ class StreamDestination implements DestinationInterface
     /**
      * Create and register the destination.
      *
-     * @param array $config
-     *
-     * @return mixed
+     * @return \Zenstruck\Backup\Destination\StreamDestination
      */
-    public function create(array $config)
+    public function create()
     {
         return new Destination('stream', storage_path('backups'));
     }

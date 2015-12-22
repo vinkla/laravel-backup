@@ -21,9 +21,7 @@ interface SourceInterface
     /**
      * Create and register the source.
      *
-     * @param array $config
-     *
      * @return mixed
      */
-    public function create(array $config);
+    public function create();
 }

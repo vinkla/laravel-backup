@@ -21,9 +21,7 @@ interface DestinationInterface
     /**
      * Create and register the destination.
      *
-     * @param array $config
-     *
      * @return mixed
      */
-    public function create(array $config);
+    public function create();
 }

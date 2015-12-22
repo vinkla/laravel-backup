@@ -11,7 +11,7 @@
 
 namespace Vinkla\Backup\Sources;
 
-use Illuminate\Database\DatabaseManager;
+use Illuminate\Contracts\Config\Repository;
 use InvalidArgumentException;
 use Zenstruck\Backup\Source\MySqlDumpSource as Source;
 
@@ -27,37 +27,47 @@ class MySqlDumpSource implements SourceInterface
      *
      * @var \Illuminate\Database\DatabaseManager
      */
-    protected $database;
+    protected $config;
 
     /**
      * Create a new backup factory instance.
      *
-     * @param \Illuminate\Database\DatabaseManager $database
+     * @param \Illuminate\Contracts\Config\Repository $config
+     *
+     * @return void
      */
-    public function __construct(DatabaseManager $database)
+    public function __construct(Repository $config)
     {
-        $this->database = $database;
+        $this->config = $config;
     }
 
     /**
      * Create and register the source.
      *
-     * @param array $config
-     *
      * @throws \InvalidArgumentException
      *
      * @return \Zenstruck\Backup\Source\MySqlDumpSource
      */
-    public function create(array $config)
+    public function create()
     {
-        $config = $this->database->getDefaultConnection();
+        $connection = $this->getDatabaseConnection();
 
-        $driver = $config['driver'];
+        $config = $this->config->get("database.connections.$connection");
 
-        if ($driver !== 'mysql') {
-            throw new InvalidArgumentException("Unsupported database driver [$driver].");
+        if ($config['driver'] !== 'mysql') {
+            throw new InvalidArgumentException("Unsupported database driver [{$config['driver']}].");
         }
 
-        return new Source($driver, $config['database'], $config['host'], $config['username'], $config['password']);
+        return new Source($config['driver'], $config['database'], $config['host'], $config['username'], $config['password']);
+    }
+
+    /**
+     * Get the database driver.
+     *
+     * @return string
+     */
+    public function getDatabaseConnection()
+    {
+        return $this->config->get('database.default');
     }
 }
