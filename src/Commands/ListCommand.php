@@ -13,6 +13,7 @@ namespace Vinkla\Backup\Commands;
 
 use Illuminate\Console\Command;
 use RuntimeException;
+use Symfony\Component\Console\Input\InputArgument;
 use Vinkla\Backup\ProfileRegistryFactory;
 
 /**
@@ -74,22 +75,38 @@ class ListCommand extends Command
             return 1;
         }
 
-        $this->info('Available Profiles:');
-        $this->line('');
+        $profile = $registry->get($this->argument('profile'));
 
-        $headers = ['Name', 'Sources', 'Destinations'];
-        $rows = [];
+        foreach ($profile->getDestinations() as $destination) {
+            $this->info(sprintf('Existing backups for %s:', $destination->getName()));
+            $this->line('');
 
-        foreach ($registry as $profile) {
-            $rows[] = [
-                $profile->getName(),
-                implode(",\n", array_keys($profile->getSources())),
-                implode(",\n", array_keys($profile->getDestinations())),
-            ];
+            $headers = ['Key', 'Size', 'Created At'];
+            $rows = [];
+
+            foreach ($destination->all() as $backup) {
+                $rows[] = [
+                    $backup->getKey(),
+                    $backup->getSize(),
+                    $backup->getCreatedAt(),
+                ];
+            }
+
+            $this->table($headers, $rows);
         }
 
-        $this->table($headers, $rows);
-
         return 0;
+    }
+
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return [
+            ['profile', InputArgument::REQUIRED, 'The backup profile to list backups for'],
+        ];
     }
 }
