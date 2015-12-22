@@ -11,11 +11,12 @@
 
 namespace Vinkla\Backup;
 
-use GrahamCampbell\Flysystem\FlysystemServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
+use Vinkla\Backup\Commands\RunCommand;
+use Zenstruck\Backup\Executor;
 
 /**
  * This is the backup service provider class.
@@ -33,7 +34,7 @@ class BackupServiceProvider extends ServiceProvider
     {
         $this->setupConfig($this->app);
 
-        $this->commands('command.backup');
+        $this->commands('command.backuprun');
     }
 
     /**
@@ -63,27 +64,14 @@ class BackupServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerFlysystem($this->app);
         $this->registerFactory($this->app);
-        $this->registerManager($this->app);
-        $this->registerBindings($this->app);
+        $this->registerExecutor($this->app);
+        $this->registerSources($this->app);
         $this->registerRunCommand($this->app);
     }
 
     /**
-     * Register the flysystem service provider.
-     *
-     * @param \Illuminate\Contracts\Foundation\Application $app
-     *
-     * @return void
-     */
-    protected function registerFlysystem(Application $app)
-    {
-        $app->register(FlysystemServiceProvider::class);
-    }
-
-    /**
-     * Register the factory class.
+     * Register the factory.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
      *
@@ -91,51 +79,29 @@ class BackupServiceProvider extends ServiceProvider
      */
     protected function registerFactory(Application $app)
     {
-        $app->singleton('backup.factory', function () use ($app) {
-            $database = $app['db'];
-            $flysystem = $app['flysystem'];
+        $app->singleton('backup.factory', function ($app) {
+            $config = $app['config']['backup'];
 
-            return new BackupFactory($database, $flysystem);
+            return new ProfileRegistryFactory($config);
         });
 
-        $app->alias('backup.factory', BackupFactory::class);
+        $app->alias('backup.factory', ProfileRegistryFactory::class);
     }
 
     /**
-     * Register the manager class.
+     * Register the backup executor.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
-     *
-     * @return void
      */
-    protected function registerManager(Application $app)
+    protected function registerExecutor(Application $app)
     {
-        $app->singleton('backup', function ($app) {
-            $config = $app['config'];
-            $factory = $app['backup.factory'];
+        $app->singleton('backup.executor', function ($app) {
+            $logger = $app['log'];
 
-            return new BackupManager($config, $factory);
+            return new Executor($logger);
         });
 
-        $app->alias('backup', BackupManager::class);
-    }
-
-    /**
-     * Register the bindings.
-     *
-     * @param \Illuminate\Contracts\Foundation\Application $app
-     *
-     * @return void
-     */
-    protected function registerBindings(Application $app)
-    {
-        $app->bind('backup.connection', function ($app) {
-            $manager = $app['backup'];
-
-            return $manager->connection();
-        });
-
-        $app->alias('backup.connection', Backup::class);
+        $app->alias('backup.executor', Executor::class);
     }
 
     /**
@@ -148,10 +114,26 @@ class BackupServiceProvider extends ServiceProvider
     protected function registerRunCommand(Application $app)
     {
         $app->singleton('command.backuprun', function ($app) {
-            $backup = $app['backup'];
-            $logger = $app['log'];
+            $factory = $app['backup.factory'];
+            $executor = $app['backup.executor'];
 
-            return new RunCommand($backup, $logger);
+            return new RunCommand($factory, $executor);
+        });
+    }
+
+    /**
+     * Register the sources.
+     *
+     * @param \Illuminate\Contracts\Foundation\Application $app
+     *
+     * @return void
+     */
+    protected function registerSources(Application $app)
+    {
+        $app->bind(MySqlDumpSource::class, function ($app) {
+            $database = $app['db'];
+
+            return new MySqlDumpSource($database);
         });
     }
 
@@ -165,8 +147,8 @@ class BackupServiceProvider extends ServiceProvider
         return [
             'backup',
             'backup.factory',
-            'backup.connection',
-            'command.backup',
+            'backup.executor',
+            'command.backuprun',
         ];
     }
 }

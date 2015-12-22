@@ -12,8 +12,9 @@
 namespace Vinkla\Backup\Commands;
 
 use Illuminate\Console\Command;
-use Psr\Log\LoggerInterface;
+use Symfony\Component\Console\Input\InputArgument;
 use Vinkla\Backup\Backup;
+use Vinkla\Backup\ProfileRegistryFactory;
 use Zenstruck\Backup\Executor;
 
 /**
@@ -40,27 +41,27 @@ class RunCommand extends Command
     /**
      * The backup instance.
      *
-     * @var \Vinkla\Backup\Backup
+     * @var \Vinkla\Backup\ProfileRegistryFactory
      */
-    protected $backup;
+    protected $factory;
 
     /**
-     * The logger instance.
+     * The executor instance.
      *
-     * @var \Psr\Log\LoggerInterface
+     * @var \Zenstruck\Backup\Executor
      */
-    protected $logger;
+    protected $executor;
 
     /**
      * Create a new run command instance.
      *
-     * @param \Vinkla\Backup\Backup $backup
-     * @param \Psr\Log\LoggerInterface $logger
+     * @param \Vinkla\Backup\ProfileRegistryFactory $factory
+     * @param \Zenstruck\Backup\Executor $executor
      */
-    public function __construct(Backup $backup, LoggerInterface $logger)
+    public function __construct(ProfileRegistryFactory $factory, Executor $executor)
     {
-        $this->backup = $backup;
-        $this->logger = $logger;
+        $this->factory = $factory;
+        $this->executor = $executor;
 
         parent::__construct();
     }
@@ -72,8 +73,20 @@ class RunCommand extends Command
      */
     public function handle()
     {
-        $executor = new Executor($this->logger);
+        $registry = $this->factory->getProfileRegistry();
 
-        $executor->backup($this->backup->getProfile());
+        $this->executor->backup($registry->get());
+    }
+
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return [
+            ['profile', null, InputArgument::REQUIRED, 'The backup profile to run (leave blank for listing)'],
+        ];
     }
 }

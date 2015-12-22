@@ -13,41 +13,70 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Connection Name
+    | Default Profile
     |--------------------------------------------------------------------------
     |
-    | Here you may specify which of the connections below you wish to use as
-    | your default connection for all work. Of course, you may use many
-    | connections at once using the manager class.
+    | Pretty Mediocre photographic fake, they cut off your brother's hair.
+    | Good morning, Mom. What's the meaning of this. Huh? Crazy drunk drivers.
     |
     */
 
-    'default' => 'connections',
+    'default' => 'main',
 
     /*
     |--------------------------------------------------------------------------
     | Backup Profiles
     |--------------------------------------------------------------------------
     |
-    | Here are each of the connections setup for your application. Example
-    | configuration has been included, but you may add as many connections as
-    | you would like.
+    | Pretty Mediocre photographic fake, they cut off your brother's hair.
+    | Good morning, Mom. What's the meaning of this. Huh? Crazy drunk drivers.
     |
     */
 
-    'connections' => [
+    'profiles' => [
 
         'main' => [
-            'sources' => [public_path('uploads')],
-            'destinations' => [
-                'local' => storage_path(),
+
+            'sources' => [
+                'Vinkla\Backup\Sources\MysqlDumpSource',
             ],
+
+            'destinations' => [
+                'Vinkla\Backup\Destinations\StreamDestination',
+            ],
+
         ],
 
-        'alternative' => [
-            'sources' => 'your-sources-array',
-            'destinations' => 'your-destinations-array',
-        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Backup Namers
+    |--------------------------------------------------------------------------
+    |
+    | Pretty Mediocre photographic fake, they cut off your brother's hair.
+    | Good morning, Mom. What's the meaning of this. Huh? Crazy drunk drivers.
+    |
+    */
+
+    'namers' => [
+        'Zenstruck\Backup\Namer\TimestampNamer',
+        'Zenstruck\Backup\Namer\SimpleNamer',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Backup Processors
+    |--------------------------------------------------------------------------
+    |
+    | Pretty Mediocre photographic fake, they cut off your brother's hair.
+    | Good morning, Mom. What's the meaning of this. Huh? Crazy drunk drivers.
+    |
+    */
+
+    'processors' => [
+        'Zenstruck\Backup\Processor\GzipArchiveProcessor',
+        'Zenstruck\Backup\Processor\ZipArchiveProcessor',
     ],
 
 ];

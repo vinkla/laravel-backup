@@ -9,24 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Vinkla\Backup\Facades;
-
-use Illuminate\Support\Facades\Facade;
+namespace Vinkla\Backup\Sources;
 
 /**
- * This is the backup facade class.
+ * This is the source interface.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class Backup extends Facade
+interface SourceInterface
 {
     /**
-     * Get the registered name of the component.
+     * Create and register the source.
      *
-     * @return string
+     * @param array $config
+     *
+     * @return mixed
      */
-    protected static function getFacadeAccessor()
-    {
-        return 'backup';
-    }
+    public function create(array $config);
 }
