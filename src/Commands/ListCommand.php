@@ -73,8 +73,8 @@ class ListCommand extends Command
             throw new RuntimeException('No profiles configured.');
         }
 
-        $this->output->writeln('<info>Available Profiles:</info>');
-        $this->output->newLine();
+        $this->info('Available Profiles:');
+        $this->line();
 
         $headers = ['Name', 'Processor', 'Namer', 'Sources', 'Destinations'];
         $rows = [];
@@ -89,7 +89,6 @@ class ListCommand extends Command
             ];
         }
 
-
-        $this->output->table($headers, $rows);
+        $this->table($headers, $rows);
     }
 }
