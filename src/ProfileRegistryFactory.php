@@ -180,7 +180,11 @@ class ProfileRegistryFactory
     {
         $processors = $this->config['processors'];
 
-        return array_get($processors, $name, $processors[0]);
+        if (empty($name)) {
+            return reset($processors);
+        }
+
+        return array_get($processors, $name);
     }
 
     /**
@@ -212,7 +216,11 @@ class ProfileRegistryFactory
     {
         $namers = $this->config['namers'];
 
-        return array_get($namers, $name, $namers[0]);
+        if (empty($name)) {
+            return reset($namers);
+        }
+
+        return array_get($namers, $name);
     }
 
     /**
