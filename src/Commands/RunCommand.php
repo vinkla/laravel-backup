@@ -75,7 +75,9 @@ class RunCommand extends Command
     {
         $registry = $this->factory->getProfileRegistry();
 
-        $this->executor->backup($registry->get());
+        $profile = $registry->get($this->argument('profile'));
+
+        $this->executor->backup($profile);
     }
 
     /**

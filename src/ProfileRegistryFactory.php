@@ -16,6 +16,7 @@ use Illuminate\Contracts\Foundation\Application;
 use InvalidArgumentException;
 use Zenstruck\Backup\ProfileBuilder;
 use Zenstruck\Backup\ProfileRegistry;
+use Zenstruck\Backup\Source\MySqlDumpSource;
 
 /**
  * This is the profile registry factory class.
@@ -85,18 +86,17 @@ class ProfileRegistryFactory
 
         foreach ($config['profiles'] as $name => $config) {
             $builder = $this->getProfileBuilder($config);
-            $scratchDir = $this->getScratchDir($config);
-            $processor = $this->getProcessor(array_get($config, 'processor', null));
-            $namer = $this->getNamer(array_get($config, 'namer', null));
 
-            $registry->add($builder->create(
+            $profile = $builder->create(
                 $name,
-                $scratchDir,
-                $builder->getProcessor($processor),
-                $builder->getNamer($namer),
-                $builder->getSources(array_get($config, 'sources')),
-                $builder->getDestinations(array_get($config, 'destinations'))
-            ));
+                $this->getScratchDir($config),
+                $this->getProcessor(array_get($config, 'processor', null)),
+                $this->getNamer(array_get($config, 'namer', null)),
+                array_get($config, 'sources'),
+                array_get($config, 'destinations')
+            );
+
+            $registry->add($profile);
         }
 
         return $registry;
