@@ -82,7 +82,7 @@ class BackupServiceProvider extends ServiceProvider
         $app->singleton('backup.factory', function ($app) {
             $config = $app['config']['backup'];
 
-            return new ProfileRegistryFactory($config);
+            return new ProfileRegistryFactory($app, $config);
         });
 
         $app->alias('backup.factory', ProfileRegistryFactory::class);
