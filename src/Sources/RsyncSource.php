@@ -11,7 +11,7 @@
 
 namespace Vinkla\Backup\Sources;
 
-use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Filesystem\Filesystem;
 use Zenstruck\Backup\Source\RsyncSource as Source;
 
 /**
@@ -24,14 +24,14 @@ class RsyncSource implements SourceInterface
     /**
      * The filesystem instance.
      *
-     * @var \Illuminate\Contracts\Filesystem\Filesystem
+     * @var \Illuminate\Filesystem\Filesystem
      */
     protected $filesystem;
 
     /**
      * Create a new rsync source.
      *
-     * @param \Illuminate\Contracts\Filesystem\Filesystem $filesystem
+     * @param \Illuminate\Filesystem\Filesystem $filesystem
      */
     public function __construct(Filesystem $filesystem)
     {
