@@ -75,8 +75,8 @@ return [
     */
 
     'processors' => [
-        'Zenstruck\Backup\Processor\GzipArchiveProcessor',
-        'Zenstruck\Backup\Processor\ZipArchiveProcessor',
+        'Vinkla\Backup\Processors\GzipArchiveProcessor',
+        'Vinkla\Backup\Processors\ZipArchiveProcessor',
     ],
 
 ];

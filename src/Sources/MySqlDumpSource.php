@@ -58,7 +58,7 @@ class MySqlDumpSource implements SourceInterface
             throw new InvalidArgumentException("Unsupported database driver [{$config['driver']}].");
         }
 
-        return new Source($config['driver'], $config['database'], $config['host'], $config['username'], $config['password']);
+        return new Source(self::class, $config['database'], $config['host'], $config['username'], $config['password']);
     }
 
     /**

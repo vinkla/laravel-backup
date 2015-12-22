@@ -163,7 +163,7 @@ class ProfileRegistryFactory
         $config = array_merge($this->config, $config);
 
         foreach (array_get($config, 'processors', []) as $namer) {
-            $processors[] = $this->app->make($namer, [$namer]);
+            $processors[] = $this->app->make($namer)->create();
         }
 
         return $processors;
@@ -199,7 +199,7 @@ class ProfileRegistryFactory
         $config = array_merge($this->config, $config);
 
         foreach (array_get($config, 'namers', []) as $namer) {
-            $namers[] = $this->app->make($namer, [$namer]);
+            $namers[] = $this->app->make($namer)->create();
         }
 
         return $namers;

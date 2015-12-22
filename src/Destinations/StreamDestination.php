@@ -27,6 +27,6 @@ class StreamDestination implements DestinationInterface
      */
     public function create()
     {
-        return new Destination('stream', storage_path('backups'));
+        return new Destination(self::class, storage_path('backups'));
     }
 }
