@@ -131,9 +131,9 @@ class BackupServiceProvider extends ServiceProvider
     protected function registerSources(Application $app)
     {
         $app->bind(MySqlDumpSource::class, function ($app) {
-            $database = $app['db'];
+            $config = $app['config'];
 
-            return new MySqlDumpSource($database);
+            return new MySqlDumpSource($config);
         });
     }
 
