@@ -1,7 +1,7 @@
 Laravel Backup
 ==============
 
-A backup manager for Laravel built with [Backup](https://github.com/kbond/php-backup) and [Laravel Flysystem](https://github.com/GrahamCampbell/Laravel-Flysystem).
+A backup manager for Laravel built on top of [Kevin Bond's](https://github.com/kbond) [backup](https://github.com/kbond/php-backup) package.
 
 > **Please note** that this is still work in progress. Don't use it on production just yet.
 
