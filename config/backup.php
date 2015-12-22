@@ -51,21 +51,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Backup Namers
-    |--------------------------------------------------------------------------
-    |
-    | Pretty Mediocre photographic fake, they cut off your brother's hair.
-    | Good morning, Mom. What's the meaning of this. Huh? Crazy drunk drivers.
-    |
-    */
-
-    'namers' => [
-        'Zenstruck\Backup\Namer\TimestampNamer',
-        'Zenstruck\Backup\Namer\SimpleNamer',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Backup Processors
     |--------------------------------------------------------------------------
     |
@@ -77,6 +62,21 @@ return [
     'processors' => [
         'Vinkla\Backup\Processors\GzipArchiveProcessor',
         'Vinkla\Backup\Processors\ZipArchiveProcessor',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Backup Namers
+    |--------------------------------------------------------------------------
+    |
+    | Pretty Mediocre photographic fake, they cut off your brother's hair.
+    | Good morning, Mom. What's the meaning of this. Huh? Crazy drunk drivers.
+    |
+    */
+
+    'namers' => [
+        'Vinkla\Backup\Namers\TimestampNamer',
+        'Vinkla\Backup\Namers\SimpleNamer',
     ],
 
 ];
