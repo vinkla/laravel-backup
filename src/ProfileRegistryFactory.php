@@ -87,7 +87,7 @@ class ProfileRegistryFactory
             $builder = $this->getProfileBuilder($config);
             $scratchDir = $this->getScratchDir($config);
             $processor = $this->getProcessor(array_get($config, 'processor', null));
-            $namer = $this->getProcessor(array_get($config, 'namer', null));
+            $namer = $this->getNamer(array_get($config, 'namer', null));
 
             $registry->add($builder->create(
                 $name,
