@@ -13,7 +13,6 @@ namespace Vinkla\Backup\Commands;
 
 use Illuminate\Console\Command;
 use RuntimeException;
-use Symfony\Component\Console\Helper\Table;
 use Vinkla\Backup\ProfileRegistryFactory;
 
 /**

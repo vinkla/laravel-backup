@@ -45,11 +45,6 @@ return [
             ],
         ],
 
-        'alternative' => [
-            'sources' => ['your-sources-array'],
-            'destinations' => ['your-sources-array'],
-        ],
-
     ],
 
     /*
