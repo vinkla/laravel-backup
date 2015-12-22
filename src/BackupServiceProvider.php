@@ -36,7 +36,7 @@ class BackupServiceProvider extends ServiceProvider
     {
         $this->setupConfig($this->app);
 
-        $this->commands('command.backuprun');
+        $this->commands(['command.backuprun', 'command.backuplist']);
     }
 
     /**
@@ -174,6 +174,7 @@ class BackupServiceProvider extends ServiceProvider
             'backup.factory',
             'backup.executor',
             'command.backuprun',
+            'command.backuplist',
         ];
     }
 }
