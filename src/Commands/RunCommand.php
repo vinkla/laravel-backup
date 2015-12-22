@@ -76,7 +76,7 @@ class RunCommand extends Command
     {
         $registry = $this->factory->getProfileRegistry();
 
-        if (!$this->argument('profile')) {
+        if (!$this->input->hasArgument('profile')) {
             $this->error('The profile argument is required.');
 
             return 1;
