@@ -69,25 +69,27 @@ class ListCommand extends Command
         $registry = $this->factory->getProfileRegistry();
 
         if (0 === count($registry)) {
-            throw new RuntimeException('No profiles configured.');
+            $this->error('No profiles configured.');
+
+            return 1;
         }
 
         $this->info('Available Profiles:');
-        $this->line();
+        $this->line('');
 
-        $headers = ['Name', 'Processor', 'Namer', 'Sources', 'Destinations'];
+        $headers = ['Name', 'Sources', 'Destinations'];
         $rows = [];
 
         foreach ($registry as $profile) {
             $rows[] = [
                 $profile->getName(),
-                $profile->getProcessor()->getName(),
-                $profile->getNamer()->getName(),
-                implode(', ', array_keys($profile->getSources())),
-                implode(', ', array_keys($profile->getDestinations())),
+                implode(",\n", array_keys($profile->getSources())),
+                implode(",\n", array_keys($profile->getDestinations())),
             ];
         }
 
         $this->table($headers, $rows);
+
+        return 0;
     }
 }

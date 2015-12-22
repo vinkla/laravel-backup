@@ -17,7 +17,6 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
 use Vinkla\Backup\Commands\ListCommand;
 use Vinkla\Backup\Commands\RunCommand;
-use Vinkla\Backup\Sources\RsyncSource;
 use Zenstruck\Backup\Executor;
 
 /**
@@ -153,12 +152,6 @@ class BackupServiceProvider extends ServiceProvider
             $config = $app['config'];
 
             return new MySqlDumpSource($config);
-        });
-
-        $app->bind(RsyncSource::class, function ($app) {
-            $filesystem = $app['files'];
-
-            return new RsyncSource($filesystem);
         });
     }
 

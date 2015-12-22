@@ -11,7 +11,6 @@
 
 namespace Vinkla\Backup\Sources;
 
-use Illuminate\Filesystem\Filesystem;
 use Zenstruck\Backup\Source\RsyncSource as Source;
 
 /**
@@ -22,39 +21,22 @@ use Zenstruck\Backup\Source\RsyncSource as Source;
 class RsyncSource implements SourceInterface
 {
     /**
-     * The filesystem instance.
-     *
-     * @var \Illuminate\Filesystem\Filesystem
-     */
-    protected $filesystem;
-
-    /**
-     * Create a new rsync source.
-     *
-     * @param \Illuminate\Filesystem\Filesystem $filesystem
-     */
-    public function __construct(Filesystem $filesystem)
-    {
-        $this->filesystem = $filesystem;
-    }
-
-    /**
      * Create and register the source.
      *
      * @return \Zenstruck\Backup\Source\RsyncSource
      */
     public function create()
     {
-        $excludes = '';
+        return new Source(self::class, $this->getSourcePath());
+    }
 
-        if ($this->filesystem->exists(base_path('.gitignore'))) {
-            $ignore = $this->filesystem->get(base_path('.gitignore'));
-
-            $excludes = implode(' ', explode("\n", $ignore));
-        }
-
-        dd($excludes);
-
-        return new Source(self::class, base_path(), ['--exclude' => $excludes]);
+    /**
+     * Get the source path.
+     *
+     * @return string
+     */
+    public function getSourcePath()
+    {
+        return public_path();
     }
 }

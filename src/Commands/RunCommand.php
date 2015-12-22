@@ -77,12 +77,16 @@ class RunCommand extends Command
         $registry = $this->factory->getProfileRegistry();
 
         if (!$this->argument('profile')) {
-            $this->call('backup:list');
+            $this->error('The profile argument is required.');
+
+            return 1;
         }
 
         $profile = $registry->get($this->argument('profile'));
 
         $this->executor->backup($profile);
+
+        return 0;
     }
 
     /**
@@ -93,7 +97,7 @@ class RunCommand extends Command
     protected function getArguments()
     {
         return [
-            ['profile', null, InputArgument::REQUIRED, 'The backup profile to run (leave blank for listing)'],
+            ['profile', null, InputArgument::REQUIRED, 'The backup profile to run'],
         ];
     }
 }
