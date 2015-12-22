@@ -78,8 +78,8 @@ class ListCommand extends Command
         $profile = $registry->get($this->argument('profile'));
 
         foreach ($profile->getDestinations() as $destination) {
-            $this->info(sprintf('Existing backups for %s:', $destination->getName()));
             $this->line('');
+            $this->info(sprintf('Existing backups for %s', $destination->getName()));
 
             $headers = ['Key', 'Size', 'Created At'];
             $rows = [];
@@ -88,11 +88,12 @@ class ListCommand extends Command
                 $rows[] = [
                     $backup->getKey(),
                     $backup->getSize(),
-                    $backup->getCreatedAt(),
+                    $backup->getCreatedAt()->format('Y-m-d H:i:s'),
                 ];
             }
 
             $this->table($headers, $rows);
+            $this->line('');
         }
 
         return 0;

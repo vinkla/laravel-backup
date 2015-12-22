@@ -81,6 +81,8 @@ class RunCommand extends Command
 
         $this->executor->backup($profile, $this->option('clear'));
 
+        $this->info('Profile was successfully backed up!');
+
         return 0;
     }
 
