@@ -21,7 +21,7 @@ interface SourceInterface
     /**
      * Create and register the source.
      *
-     * @return mixed
+     * @return \Zenstruck\Backup\Source
      */
     public function create();
 }

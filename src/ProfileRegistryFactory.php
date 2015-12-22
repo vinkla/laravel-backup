@@ -11,12 +11,10 @@
 
 namespace Vinkla\Backup;
 
-use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use InvalidArgumentException;
 use Zenstruck\Backup\ProfileBuilder;
 use Zenstruck\Backup\ProfileRegistry;
-use Zenstruck\Backup\Source\MySqlDumpSource;
 
 /**
  * This is the profile registry factory class.

@@ -15,6 +15,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
+use Vinkla\Backup\Commands\ListCommand;
 use Vinkla\Backup\Commands\RunCommand;
 use Zenstruck\Backup\Executor;
 
@@ -68,6 +69,7 @@ class BackupServiceProvider extends ServiceProvider
         $this->registerExecutor($this->app);
         $this->registerSources($this->app);
         $this->registerRunCommand($this->app);
+        $this->registerListCommand($this->app);
     }
 
     /**
@@ -118,6 +120,22 @@ class BackupServiceProvider extends ServiceProvider
             $executor = $app['backup.executor'];
 
             return new RunCommand($factory, $executor);
+        });
+    }
+
+    /**
+     * Register the list command.
+     *
+     * @param \Illuminate\Contracts\Foundation\Application $app
+     *
+     * @return void
+     */
+    protected function registerListCommand(Application $app)
+    {
+        $app->singleton('command.backuplist', function ($app) {
+            $factory = $app['backup.factory'];
+
+            return new ListCommand($factory);
         });
     }
 

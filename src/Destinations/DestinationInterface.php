@@ -21,7 +21,7 @@ interface DestinationInterface
     /**
      * Create and register the destination.
      *
-     * @return mixed
+     * @return \Zenstruck\Backup\Destination
      */
     public function create();
 }

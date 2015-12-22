@@ -1,15 +1,29 @@
 <?php
 
+/*
+ * This file is part of Laravel Backup.
+ *
+ * (c) Vincent Klaiber <hello@vinkla.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Vinkla\Backup\Namers;
 
 use Zenstruck\Backup\Namer\SimpleNamer as Namer;
 
+/**
+ * This is the simple namer class.
+ *
+ * @author Vincent Klaiber <hello@vinkla.com>
+ */
 class SimpleNamer implements NamerInterface
 {
     /**
      * Create and register the namer.
      *
-     * @return mixed
+     * @return \Zenstruck\Backup\Namer\SimpleNamer
      */
     public function create()
     {

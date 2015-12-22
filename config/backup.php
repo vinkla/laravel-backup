@@ -36,15 +36,18 @@ return [
     'profiles' => [
 
         'main' => [
-
             'sources' => [
+                'Vinkla\Backup\Sources\RsyncSource',
                 'Vinkla\Backup\Sources\MySqlDumpSource',
             ],
-
             'destinations' => [
                 'Vinkla\Backup\Destinations\StreamDestination',
             ],
+        ],
 
+        'alternative' => [
+            'sources' => ['your-sources-array'],
+            'destinations' => ['your-sources-array'],
         ],
 
     ],

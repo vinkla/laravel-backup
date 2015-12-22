@@ -13,7 +13,6 @@ namespace Vinkla\Backup\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
-use Vinkla\Backup\Backup;
 use Vinkla\Backup\ProfileRegistryFactory;
 use Zenstruck\Backup\Executor;
 
@@ -36,7 +35,7 @@ class RunCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Backup the application';
+    protected $description = 'Run a backup profile';
 
     /**
      * The backup instance.
@@ -57,6 +56,8 @@ class RunCommand extends Command
      *
      * @param \Vinkla\Backup\ProfileRegistryFactory $factory
      * @param \Zenstruck\Backup\Executor $executor
+     *
+     * @return void
      */
     public function __construct(ProfileRegistryFactory $factory, Executor $executor)
     {
@@ -74,6 +75,10 @@ class RunCommand extends Command
     public function handle()
     {
         $registry = $this->factory->getProfileRegistry();
+
+        if (!$this->argument('profile')) {
+            $this->call('backup:list');
+        }
 
         $profile = $registry->get($this->argument('profile'));
 

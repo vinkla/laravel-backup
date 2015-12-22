@@ -13,12 +13,17 @@ namespace Vinkla\Backup\Processors;
 
 use Zenstruck\Backup\Processor\GzipArchiveProcessor as Processor;
 
+/**
+ * This is the gzip archive processor class.
+ *
+ * @author Vincent Klaiber <hello@vinkla.com>
+ */
 class GzipArchiveProcessor implements ProcessorInterface
 {
     /**
      * Create and register the processor.
      *
-     * @return mixed
+     * @return \Zenstruck\Backup\Processor\GzipArchiveProcessor
      */
     public function create()
     {

@@ -21,7 +21,7 @@ interface NamerInterface
     /**
      * Create and register the namer.
      *
-     * @return mixed
+     * @return \Zenstruck\Backup\Namer
      */
     public function create();
 }
