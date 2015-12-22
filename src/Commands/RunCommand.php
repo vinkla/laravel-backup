@@ -13,6 +13,7 @@ namespace Vinkla\Backup\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 use Vinkla\Backup\ProfileRegistryFactory;
 use Zenstruck\Backup\Executor;
 
@@ -76,15 +77,9 @@ class RunCommand extends Command
     {
         $registry = $this->factory->getProfileRegistry();
 
-        if (!$this->input->hasArgument('profile')) {
-            $this->error('The profile argument is required.');
-
-            return 1;
-        }
-
         $profile = $registry->get($this->argument('profile'));
 
-        $this->executor->backup($profile);
+        $this->executor->backup($profile, $this->option('clear'));
 
         return 0;
     }
@@ -97,7 +92,19 @@ class RunCommand extends Command
     protected function getArguments()
     {
         return [
-            ['profile', null, InputArgument::REQUIRED, 'The backup profile to run'],
+            ['profile', InputArgument::REQUIRED, 'The backup profile to run'],
+        ];
+    }
+
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [
+            ['clear', null, InputOption::VALUE_NONE, 'Set this flag to clear scratch directory before backup'],
         ];
     }
 }
