@@ -129,7 +129,7 @@ class ProfileRegistryFactory
     protected function getSources(array $config)
     {
         foreach (array_get($config, 'sources', []) as $source) {
-            $sources[] = $this->app->make($source)->create($config);
+            $sources[] = $this->app->make($source)->create();
         }
 
         return $sources;
@@ -145,7 +145,7 @@ class ProfileRegistryFactory
     protected function getDestinations(array $config)
     {
         foreach (array_get($config, 'destinations', []) as $destination) {
-            $destinations[] = $this->app->make($destination)->create($config);
+            $destinations[] = $this->app->make($destination)->create();
         }
 
         return $destinations;

@@ -38,7 +38,7 @@ return [
         'main' => [
 
             'sources' => [
-                'Vinkla\Backup\Sources\MysqlDumpSource',
+                'Vinkla\Backup\Sources\MySqlDumpSource',
             ],
 
             'destinations' => [
