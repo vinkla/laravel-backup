@@ -32,9 +32,9 @@ class ProfileRegistryFactory
     protected $app;
 
     /**
-     * The cache repository instance.
+     * The configuration data.
      *
-     * @var \Illuminate\Contracts\Cache\Repository
+     * @var array
      */
     protected $config;
 
@@ -42,9 +42,11 @@ class ProfileRegistryFactory
      * Create a new profile registry factory instance.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
-     * @param \Illuminate\Contracts\Cache\Repository $config
+     * @param array $config
+     *
+     * @return void
      */
-    public function __construct(Application $app, Repository $config)
+    public function __construct(Application $app, array $config)
     {
         $this->config = $config;
         $this->app = $app;
