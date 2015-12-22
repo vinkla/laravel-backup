@@ -86,14 +86,16 @@ class ProfileRegistryFactory
         foreach ($config['profiles'] as $name => $config) {
             $builder = $this->getProfileBuilder($config);
             $scratchDir = $this->getScratchDir($config);
+            $processor = $this->getProcessor(array_get($config, 'processor', null));
+            $namer = $this->getProcessor(array_get($config, 'namer', null));
 
             $registry->add($builder->create(
                 $name,
                 $scratchDir,
-                $builder->getProcessor(),
-                $builder->getNamer(),
-                $builder->getSources(),
-                $builder->getDestinations()
+                $builder->getProcessor($processor),
+                $builder->getNamer($namer),
+                $builder->getSources(array_get($config, 'sources')),
+                $builder->getDestinations(array_get($config, 'destinations'))
             ));
         }
 
@@ -168,6 +170,20 @@ class ProfileRegistryFactory
     }
 
     /**
+     * Get a single processor.
+     *
+     * @param null|string $name
+     *
+     * @return string
+     */
+    protected function getProcessor($name = null)
+    {
+        $processors = $this->config['processors'];
+
+        return array_get($processors, $name, $processors[0]);
+    }
+
+    /**
      * Get the namers.
      *
      * @param array $config
@@ -183,6 +199,20 @@ class ProfileRegistryFactory
         }
 
         return $namers;
+    }
+
+    /**
+     * Get a single namer.
+     *
+     * @param null|string $name
+     *
+     * @return string
+     */
+    protected function getNamer($name = null)
+    {
+        $namers = $this->config['namers'];
+
+        return array_get($namers, $name, $namers[0]);
     }
 
     /**
