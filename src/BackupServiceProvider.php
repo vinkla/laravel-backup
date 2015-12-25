@@ -35,7 +35,7 @@ class BackupServiceProvider extends ServiceProvider
     {
         $this->setupConfig($this->app);
 
-        $this->commands(['command.backuprun', 'command.backuplist']);
+        $this->commands(['command.backuplist', 'command.backuprun']);
     }
 
     /**
@@ -107,19 +107,18 @@ class BackupServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the run command.
+     * Register the sources.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
      *
      * @return void
      */
-    protected function registerRunCommand(Application $app)
+    protected function registerSources(Application $app)
     {
-        $app->singleton('command.backuprun', function ($app) {
-            $factory = $app['backup.factory'];
-            $executor = $app['backup.executor'];
+        $app->bind(MySqlDumpSource::class, function ($app) {
+            $config = $app['config'];
 
-            return new RunCommand($factory, $executor);
+            return new MySqlDumpSource($config);
         });
     }
 
@@ -140,18 +139,19 @@ class BackupServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the sources.
+     * Register the run command.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
      *
      * @return void
      */
-    protected function registerSources(Application $app)
+    protected function registerRunCommand(Application $app)
     {
-        $app->bind(MySqlDumpSource::class, function ($app) {
-            $config = $app['config'];
+        $app->singleton('command.backuprun', function ($app) {
+            $factory = $app['backup.factory'];
+            $executor = $app['backup.executor'];
 
-            return new MySqlDumpSource($config);
+            return new RunCommand($factory, $executor);
         });
     }
 
@@ -166,8 +166,8 @@ class BackupServiceProvider extends ServiceProvider
             'backup',
             'backup.factory',
             'backup.executor',
-            'command.backuprun',
             'command.backuplist',
+            'command.backuprun',
         ];
     }
 }
