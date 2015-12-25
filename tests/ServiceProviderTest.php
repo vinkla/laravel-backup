@@ -15,7 +15,7 @@ use GrahamCampbell\TestBenchCore\ServiceProviderTrait;
 use Vinkla\Backup\Commands\ListCommand;
 use Vinkla\Backup\Commands\RunCommand;
 use Vinkla\Backup\ProfileRegistryFactory;
-use Vinkla\Backup\Sources\MySqlDumpSource;
+use Vinkla\Backup\Sources\MysqlDumpSource;
 use Zenstruck\Backup\Executor;
 
 /**
@@ -49,6 +49,6 @@ class ServiceProviderTest extends AbstractTestCase
 
     public function testMySqlDumpSourceIsInjectable()
     {
-        $this->assertIsInjectable(MySqlDumpSource::class);
+        $this->assertIsInjectable(MysqlDumpSource::class);
     }
 }

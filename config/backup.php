@@ -38,7 +38,7 @@ return [
         'main' => [
             'sources' => [
                 'Vinkla\Backup\Sources\RsyncSource',
-                'Vinkla\Backup\Sources\MySqlDumpSource',
+                'Vinkla\Backup\Sources\MysqlDumpSource',
             ],
             'destinations' => [
                 'Vinkla\Backup\Destinations\StreamDestination',
