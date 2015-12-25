@@ -9,19 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Vinkla\Backup\Namers;
+namespace Vinkla\Backup;
 
 /**
- * This is the namer interface.
+ * This is the factory interface.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-interface NamerInterface
+interface FactoryInterface
 {
     /**
-     * Create and register the namer.
+     * Create and register the factory.
      *
-     * @return \Zenstruck\Backup\Namer
+     * @return mixed
      */
     public function create();
 }

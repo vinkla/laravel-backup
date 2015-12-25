@@ -11,6 +11,7 @@
 
 namespace Vinkla\Backup\Processors;
 
+use Vinkla\Backup\FactoryInterface;
 use Zenstruck\Backup\Processor\ZipArchiveProcessor as Processor;
 
 /**
@@ -18,7 +19,7 @@ use Zenstruck\Backup\Processor\ZipArchiveProcessor as Processor;
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class ZipArchiveProcessor implements ProcessorInterface
+class ZipArchiveProcessor implements FactoryInterface
 {
     /**
      * Create and register the processor.

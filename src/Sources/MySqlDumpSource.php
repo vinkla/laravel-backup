@@ -13,6 +13,7 @@ namespace Vinkla\Backup\Sources;
 
 use Illuminate\Contracts\Config\Repository;
 use InvalidArgumentException;
+use Vinkla\Backup\FactoryInterface;
 use Zenstruck\Backup\Source\MySqlDumpSource as Source;
 
 /**
@@ -20,7 +21,7 @@ use Zenstruck\Backup\Source\MySqlDumpSource as Source;
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class MySqlDumpSource implements SourceInterface
+class MySqlDumpSource implements FactoryInterface
 {
     /**
      * The database manager instance.
