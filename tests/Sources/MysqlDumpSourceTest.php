@@ -13,7 +13,7 @@ namespace Vinkla\Tests\Backup\Sources;
 
 use Illuminate\Contracts\Config\Repository;
 use Mockery;
-use Vinkla\Backup\Sources\MysqlDumpSource1;
+use Vinkla\Backup\Sources\MysqlDumpSource;
 use Vinkla\Tests\Backup\AbstractFactoryTestCase;
 
 /**
@@ -27,6 +27,6 @@ class MysqlDumpSourceTest extends AbstractFactoryTestCase
     {
         $config = Mockery::mock(Repository::class);
 
-        return new MysqlDumpSource1($config);
+        return new MysqlDumpSource($config);
     }
 }

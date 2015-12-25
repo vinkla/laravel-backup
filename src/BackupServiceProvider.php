@@ -17,6 +17,7 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
 use Vinkla\Backup\Commands\ListCommand;
 use Vinkla\Backup\Commands\RunCommand;
+use Vinkla\Backup\Sources\MysqlDumpSource;
 use Zenstruck\Backup\Executor;
 
 /**
@@ -115,10 +116,10 @@ class BackupServiceProvider extends ServiceProvider
      */
     protected function registerSources(Application $app)
     {
-        $app->bind(MySqlDumpSource::class, function ($app) {
+        $app->bind(MysqlDumpSource::class, function ($app) {
             $config = $app['config'];
 
-            return new MySqlDumpSource($config);
+            return new MysqlDumpSource($config);
         });
     }
 
