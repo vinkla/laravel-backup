@@ -46,7 +46,7 @@ class ServiceProviderTest extends AbstractTestCase
     {
         $this->assertIsInjectable(RunCommand::class);
     }
-    
+
     public function testMySqlDumpSourceIsInjectable()
     {
         $this->assertIsInjectable(MySqlDumpSource::class);
