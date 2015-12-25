@@ -18,8 +18,6 @@ $ php artisan backup:list
 +------------------------------------------------+---------+---------------------+
 ```
 
-> **Please note** that this is still work in progress. Don't use it on production just yet.
-
 [![Build Status](https://img.shields.io/travis/vinkla/backup/master.svg?style=flat)](https://travis-ci.org/vinkla/backup)
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/vinkla/backup.svg?style=flat)](https://scrutinizer-ci.com/g/vinkla/backup/code-structure)
 [![Quality Score](https://img.shields.io/scrutinizer/g/vinkla/backup.svg?style=flat)](https://scrutinizer-ci.com/g/vinkla/backup)
