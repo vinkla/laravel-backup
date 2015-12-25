@@ -21,7 +21,7 @@ use Zenstruck\Backup\Source\MySqlDumpSource as Source;
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class MysqlDumpSource implements FactoryInterface
+class MysqlDumpSource1 implements FactoryInterface
 {
     /**
      * The database manager instance.
