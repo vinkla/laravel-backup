@@ -12,7 +12,6 @@
 namespace Vinkla\Backup\Commands;
 
 use Illuminate\Console\Command;
-use RuntimeException;
 use Symfony\Component\Console\Input\InputArgument;
 use Vinkla\Backup\ProfileRegistryFactory;
 
