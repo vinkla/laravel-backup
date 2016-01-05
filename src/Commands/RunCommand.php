@@ -12,10 +12,10 @@
 namespace Vinkla\Backup\Commands;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
-use Vinkla\Backup\ProfileRegistryFactory;
+use Vinkla\Backup\BackupProfile;
 use Zenstruck\Backup\Executor;
+use Zenstruck\Backup\Profile;
 
 /**
  * This is the run command class.
@@ -39,11 +39,11 @@ class RunCommand extends Command
     protected $description = 'Run a backup profile';
 
     /**
-     * The backup instance.
+     * The profile instance.
      *
-     * @var \Vinkla\Backup\ProfileRegistryFactory
+     * @var \Vinkla\Backup\BackupProfile
      */
-    protected $factory;
+    protected $profile;
 
     /**
      * The executor instance.
@@ -55,14 +55,14 @@ class RunCommand extends Command
     /**
      * Create a new run command instance.
      *
-     * @param \Vinkla\Backup\ProfileRegistryFactory $factory
+     * @param \Vinkla\Backup\BackupProfile $profile
      * @param \Zenstruck\Backup\Executor $executor
      *
      * @return void
      */
-    public function __construct(ProfileRegistryFactory $factory, Executor $executor)
+    public function __construct(BackupProfile $profile, Executor $executor)
     {
-        $this->factory = $factory;
+        $this->profile = $profile;
         $this->executor = $executor;
 
         parent::__construct();
@@ -75,27 +75,13 @@ class RunCommand extends Command
      */
     public function handle()
     {
-        $registry = $this->factory->getProfileRegistry();
-
-        $profile = $registry->get($this->argument('profile'));
+        $profile = $this->profile->get();
 
         $this->executor->backup($profile, $this->option('clear'));
 
         $this->info('Profile was successfully backed up!');
 
         return 0;
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['profile', InputArgument::REQUIRED, 'The backup profile to run'],
-        ];
     }
 
     /**

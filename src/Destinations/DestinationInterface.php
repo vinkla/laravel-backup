@@ -9,19 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Vinkla\Tests\Backup\Destinations;
-
-use Vinkla\Backup\Destinations\StreamDestination;
+namespace Vinkla\Backup\Destinations;
 
 /**
- * This is the stream destination test class.
+ * This is the destination interface.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class StreamDestinationTest extends AbstractDestinationTestCase
+interface DestinationInterface
 {
-    public function getFactory()
-    {
-        return new StreamDestination();
-    }
+    /**
+     * Create and register the destination.
+     *
+     * @return \Zenstruck\Backup\Destination
+     */
+    public function create();
 }

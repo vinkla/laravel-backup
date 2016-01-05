@@ -11,17 +11,21 @@
 
 namespace Vinkla\Tests\Backup\Namers;
 
-use Vinkla\Backup\Namers\SimpleNamer;
+use Vinkla\Backup\Namers\NamerInterface;
+use Vinkla\Tests\Backup\AbstractTestCase;
+use Vinkla\Tests\Backup\FactoryTrait;
 
 /**
- * This is the simple namer test class.
+ * This is the abstract namer test case class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class SimpleNamerTest extends AbstractNamerTestCase
+abstract class AbstractNamerTestCase extends AbstractTestCase
 {
-    public function getFactory()
+    use FactoryTrait;
+
+    public function getInterface()
     {
-        return new SimpleNamer();
+        return NamerInterface::class;
     }
 }

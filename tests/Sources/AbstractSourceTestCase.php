@@ -11,17 +11,21 @@
 
 namespace Vinkla\Tests\Backup\Sources;
 
-use Vinkla\Backup\Sources\RsyncSource;
+use Vinkla\Backup\Sources\SourceInterface;
+use Vinkla\Tests\Backup\AbstractTestCase;
+use Vinkla\Tests\Backup\FactoryTrait;
 
 /**
- * This is the rsync source test class.
+ * This is the abstract source test case class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class RsyncSourceTest extends AbstractSourceTestCase
+abstract class AbstractSourceTestCase extends AbstractTestCase
 {
-    public function getFactory()
+    use FactoryTrait;
+
+    public function getInterface()
     {
-        return new RsyncSource();
+        return SourceInterface::class;
     }
 }

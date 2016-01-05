@@ -12,8 +12,8 @@
 namespace Vinkla\Backup\Commands;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Vinkla\Backup\ProfileRegistryFactory;
+use Vinkla\Backup\BackupProfile;
+use Zenstruck\Backup\Profile;
 
 /**
  * This is the list command class.
@@ -34,25 +34,25 @@ class ListCommand extends Command
      *
      * @var string
      */
-    protected $description = 'List backup profiles';
+    protected $description = 'List backups';
 
     /**
-     * The factory instance.
+     * The profile instance.
      *
-     * @var \Vinkla\Backup\ProfileRegistryFactory
+     * @var \Vinkla\Backup\BackupProfile
      */
-    protected $factory;
+    protected $profile;
 
     /**
      * Create a new list command instance.
      *
-     * @param \Vinkla\Backup\ProfileRegistryFactory $factory
+     * @param \Vinkla\Backup\BackupProfile $profile
      *
      * @return void
      */
-    public function __construct(ProfileRegistryFactory $factory)
+    public function __construct(BackupProfile $profile)
     {
-        $this->factory = $factory;
+        $this->profile = $profile;
 
         parent::__construct();
     }
@@ -66,15 +66,7 @@ class ListCommand extends Command
      */
     public function handle()
     {
-        $registry = $this->factory->getProfileRegistry();
-
-        if (0 === count($registry)) {
-            $this->error('No profiles configured.');
-
-            return 1;
-        }
-
-        $profile = $registry->get($this->argument('profile'));
+        $profile = $this->profile->get();
 
         foreach ($profile->getDestinations() as $destination) {
             $this->line('');
@@ -96,17 +88,5 @@ class ListCommand extends Command
         }
 
         return 0;
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['profile', InputArgument::REQUIRED, 'The backup profile to list backups for'],
-        ];
     }
 }

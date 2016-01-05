@@ -11,19 +11,19 @@
 
 namespace Vinkla\Tests\Backup;
 
-use Vinkla\Backup\FactoryInterface;
-
 /**
- * This is the abstract factory test case class.
+ * This is the factory trait.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-abstract class AbstractFactoryTestCase extends AbstractTestCase
+trait FactoryTrait
 {
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf(FactoryInterface::class, $this->getFactory());
+        $this->assertInstanceOf($this->getInterface(), $this->getFactory());
     }
+
+    abstract public function getInterface();
 
     abstract public function getFactory();
 }

@@ -14,14 +14,13 @@ namespace Vinkla\Tests\Backup\Sources;
 use Illuminate\Contracts\Config\Repository;
 use Mockery;
 use Vinkla\Backup\Sources\MysqlDumpSource;
-use Vinkla\Tests\Backup\AbstractFactoryTestCase;
 
 /**
  * This is the mysql dump source test class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class MysqlDumpSourceTest extends AbstractFactoryTestCase
+class MysqlDumpSourceTest extends AbstractSourceTestCase
 {
     public function getFactory()
     {

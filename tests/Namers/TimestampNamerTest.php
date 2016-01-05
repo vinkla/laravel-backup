@@ -9,17 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Vinkla\Tests\Backup\Destinations;
+namespace Vinkla\Tests\Backup\Namers;
 
 use Vinkla\Backup\Namers\TimestampNamer;
-use Vinkla\Tests\Backup\AbstractFactoryTestCase;
 
 /**
  * This is the timestamp namer test class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class TimestampNamerTest extends AbstractFactoryTestCase
+class TimestampNamerTest extends AbstractNamerTestCase
 {
     public function getFactory()
     {
