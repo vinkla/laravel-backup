@@ -16,8 +16,9 @@ return [
     | Backup Profiles
     |--------------------------------------------------------------------------
     |
-    | Pretty Mediocre photographic fake, they cut off your brother's hair.
-    | Good morning, Mom. What's the meaning of this. Huh? Crazy drunk drivers.
+    | The profiles array allows you to setup multiple backup profiles. Example
+    | configuration has been included, but you may add as many profiles as you
+    | would like.
     |
     */
 
@@ -44,8 +45,10 @@ return [
     | Backup Sources
     |--------------------------------------------------------------------------
     |
-    | Pretty Mediocre photographic fake, they cut off your brother's hair.
-    | Good morning, Mom. What's the meaning of this. Huh? Crazy drunk drivers.
+    | What to backup (i.e. database/files). The source fetches files and copies
+    | them to a "scratch" directory. These files are typically persisted
+    | between backups (improves rsync performance) but can be cleared by the
+    | executor.
     |
     */
 
@@ -59,8 +62,9 @@ return [
     | Backup Destinations
     |--------------------------------------------------------------------------
     |
-    | Pretty Mediocre photographic fake, they cut off your brother's hair.
-    | Good morning, Mom. What's the meaning of this. Huh? Crazy drunk drivers.
+    | Where to send the backup i.e. filesystem, S3, Dropbox, etc. We have
+    | provided a default local destination that will save the backup file
+    | the Laravel's storage directory (storage/backups).
     |
     */
 
@@ -73,8 +77,8 @@ return [
     | Backup Processors
     |--------------------------------------------------------------------------
     |
-    | Pretty Mediocre photographic fake, they cut off your brother's hair.
-    | Good morning, Mom. What's the meaning of this. Huh? Crazy drunk drivers.
+    | The processors converts the backup to a single file (i.e. zip/tar.gz).
+    | This step uses a namer to name the file (read more below).
     |
     */
 
@@ -88,8 +92,8 @@ return [
     | Backup Namers
     |--------------------------------------------------------------------------
     |
-    | Pretty Mediocre photographic fake, they cut off your brother's hair.
-    | Good morning, Mom. What's the meaning of this. Huh? Crazy drunk drivers.
+    | Generates the backup filename to be used by the processors. Below we've
+    | provided default namers. Of course, you may setup custom namers.
     |
     */
 
