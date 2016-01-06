@@ -6,7 +6,7 @@ Laravel Backup
 A backup manager for Laravel built on top of [Kevin Bond's](https://github.com/kbond) [backup](https://github.com/kbond/php-backup) package.
 
 ```bash
-$ php artisan backup:run
+$ php artisan backup:run main
 Profile was successfully backed up!
 
 $ php artisan backup:list
@@ -52,7 +52,7 @@ This will create a `config/backup.php` file in your app that you can modify to s
 In order to run a backup use the command below.
 
 ```bash
-$ php artisan backup:run
+$ php artisan backup:run main
 Profile was successfully backed up!
 ```
 
