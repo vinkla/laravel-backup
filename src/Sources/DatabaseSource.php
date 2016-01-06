@@ -23,9 +23,9 @@ use Zenstruck\Backup\Source\MySqlDumpSource;
 class DatabaseSource implements SourceInterface
 {
     /**
-     * The database manager instance.
+     * The config repository instance.
      *
-     * @var \Illuminate\Database\DatabaseManager
+     * @var \Illuminate\Contracts\Config\Repository
      */
     protected $config;
 
