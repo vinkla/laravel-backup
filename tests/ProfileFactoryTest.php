@@ -16,7 +16,7 @@ use Vinkla\Backup\ProfileBuilderFactory;
 use Vinkla\Backup\ProfileFactory;
 
 /**
- * This is the profile registry test class.
+ * This is the profile factory test class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
