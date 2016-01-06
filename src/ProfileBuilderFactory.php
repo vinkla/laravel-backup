@@ -105,6 +105,6 @@ class ProfileBuilderFactory
             $classes[$index] = $this->app->make($class)->bootstrap();
         }
 
-        return $class;
+        return $classes;
     }
 }
