@@ -14,6 +14,7 @@ namespace Vinkla\Tests\Backup;
 use Mockery;
 use Vinkla\Backup\ProfileFactory;
 use Vinkla\Backup\ProfileRegistryFactory;
+use Zenstruck\Backup\ProfileRegistry;
 
 /**
  * This is the profile registry factory test class.
@@ -22,6 +23,15 @@ use Vinkla\Backup\ProfileRegistryFactory;
  */
 class ProfileRegistryFactoryTest extends AbstractTestCase
 {
+    public function testMakeStandard()
+    {
+        $factory = $this->getProfileRegistryFactory();
+
+        $return = $factory->make(['profiles' => []]);
+
+        $this->assertInstanceOf(ProfileRegistry::class, $return);
+    }
+
     /**
      * @expectedException \InvalidArgumentException
      */

@@ -11,9 +11,9 @@
 
 namespace Vinkla\Tests\Backup;
 
-use Mockery;
 use Vinkla\Backup\ProfileBuilderFactory;
 use Vinkla\Backup\ProfileFactory;
+use Zenstruck\Backup\Profile;
 
 /**
  * This is the profile factory test class.
@@ -99,7 +99,7 @@ class ProfileFactoryTest extends AbstractTestCase
 
     protected function getProfileFactory()
     {
-        $builder = Mockery::mock(ProfileBuilderFactory::class);
+        $builder = new ProfileBuilderFactory($this->app);
 
         return new ProfileFactory($builder);
     }
