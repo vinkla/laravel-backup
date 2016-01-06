@@ -65,7 +65,7 @@ class ProfileFactory
      */
     protected function getConfig(array $config)
     {
-        $keys = ['sources', 'destinations', 'processor', 'namer'];
+        $keys = ['name', 'sources', 'destinations', 'processor', 'namer'];
 
         foreach ($keys as $key) {
             if (!array_key_exists($key, $config)) {

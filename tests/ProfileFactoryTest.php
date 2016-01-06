@@ -25,11 +25,27 @@ class ProfileFactoryTest extends AbstractTestCase
     /**
      * @expectedException \InvalidArgumentException
      */
+    public function testMakeWithoutName()
+    {
+        $factory = $this->getProfileFactory();
+
+        $factory->make([
+            'sources' => 'your-sources',
+            'destinations' => 'your-destinations',
+            'processor' => 'your-processor',
+            'namer' => 'your-namer',
+        ]);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testMakeWithoutSources()
     {
         $factory = $this->getProfileFactory();
 
         $factory->make([
+            'name' => 'your-name',
             'destinations' => 'your-destinations',
             'processor' => 'your-processor',
             'namer' => 'your-namer',
@@ -44,6 +60,7 @@ class ProfileFactoryTest extends AbstractTestCase
         $factory = $this->getProfileFactory();
 
         $factory->make([
+            'name' => 'your-name',
             'sources' => 'your-sources',
             'processor' => 'your-processor',
             'namer' => 'your-namer',
@@ -58,6 +75,7 @@ class ProfileFactoryTest extends AbstractTestCase
         $factory = $this->getProfileFactory();
 
         $factory->make([
+            'name' => 'your-name',
             'sources' => 'your-sources',
             'destinations' => 'your-destinations',
             'namer' => 'your-namer',
@@ -72,6 +90,7 @@ class ProfileFactoryTest extends AbstractTestCase
         $factory = $this->getProfileFactory();
 
         $factory->make([
+            'name' => 'your-name',
             'sources' => 'your-sources',
             'destinations' => 'your-destinations',
             'processor' => 'your-processor',
