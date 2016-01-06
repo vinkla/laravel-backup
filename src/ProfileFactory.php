@@ -11,38 +11,35 @@
 
 namespace Vinkla\Backup;
 
-use Illuminate\Contracts\Foundation\Application;
 use InvalidArgumentException;
-use Zenstruck\Backup\Profile;
+use Zenstruck\Backup\ProfileBuilder;
 
 /**
- * This is the profile factory class,.
+ * This is the profile factory class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
 class ProfileFactory
 {
     /**
-     * The application instance.
+     * The profile builder factory instance.
      *
-     * @var \Illuminate\Contracts\Foundation\Application
+     * @var \Vinkla\Backup\ProfileBuilderFactory
      */
-    protected $app;
+    protected $builder;
 
     /**
-     * Create a new profile factory.
+     * Create a new profile registry builder instance.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
-     *
-     * @return void
+     * @param \Vinkla\Backup\ProfileBuilderFactory $builder
      */
-    public function __construct(Application $app)
+    public function __construct(ProfileBuilderFactory $builder)
     {
-        $this->app = $app;
+        $this->builder = $builder;
     }
 
     /**
-     * Make a new profile.
+     * Make the profile.
      *
      * @param array $config
      *
@@ -52,7 +49,9 @@ class ProfileFactory
     {
         $config = $this->getConfig($config);
 
-        return $this->getProfile($config);
+        $builder = $this->createBuilder($config);
+
+        return $this->getProfile($builder, $config);
     }
 
     /**
@@ -70,7 +69,7 @@ class ProfileFactory
 
         foreach ($keys as $key) {
             if (!array_key_exists($key, $config)) {
-                throw new InvalidArgumentException("Missing configuration key [$key].");
+                throw new InvalidArgumentException("Missing profile configuration key [$key].");
             }
         }
 
@@ -78,37 +77,34 @@ class ProfileFactory
     }
 
     /**
+     * Create the profile builder.
+     *
+     * @param array $config
+     *
+     * @return \Zenstruck\Backup\ProfileBuilder
+     */
+    protected function createBuilder($config)
+    {
+        return $this->builder->make($config);
+    }
+
+    /**
      * Get the profile.
      *
+     * @param \Zenstruck\Backup\ProfileBuilder $builder
      * @param array $config
      *
      * @return \Zenstruck\Backup\Profile
      */
-    protected function getProfile(array $config)
+    protected function getProfile(ProfileBuilder $builder, array $config)
     {
-        return new Profile(
-            'default',
-            array_get($config, 'path', storage_path('backups')),
+        return $builder->create(
+            array_get($config, 'name'),
+            array_get($config, 'scratch_dir', storage_path('backups')),
             array_get($config, 'processor'),
             array_get($config, 'namer'),
-            $this->create(array_get($config, 'sources')),
-            $this->create(array_get($config, 'destinations'))
+            array_get($config, 'sources'),
+            array_get($config, 'destinations')
         );
-    }
-
-    /**
-     * Make multiple objects using the container.
-     *
-     * @param string [] $classes
-     *
-     * @return object[]
-     */
-    protected function create($classes)
-    {
-        foreach ($classes as $index => $class) {
-            $classes[$index] = $this->app->make($class)->create();
-        }
-
-        return $classes;
     }
 }

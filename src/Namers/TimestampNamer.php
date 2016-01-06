@@ -21,12 +21,22 @@ use Zenstruck\Backup\Namer\TimestampNamer as Namer;
 class TimestampNamer implements NamerInterface
 {
     /**
-     * Create and register the namer.
+     * Bootstrap the namer.
      *
      * @return \Zenstruck\Backup\Namer\TimestampNamer
      */
-    public function create()
+    public function bootstrap()
     {
-        return new Namer(self::class);
+        return new Namer($this->getName());
+    }
+
+    /**
+     * Get the namer name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return 'timestamp';
     }
 }

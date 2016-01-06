@@ -12,11 +12,12 @@
 namespace Vinkla\Tests\Backup;
 
 use GrahamCampbell\TestBenchCore\ServiceProviderTrait;
-use Vinkla\Backup\BackupProfile;
 use Vinkla\Backup\Commands\ListCommand;
 use Vinkla\Backup\Commands\RunCommand;
+use Vinkla\Backup\ProfileBuilderFactory;
 use Vinkla\Backup\ProfileFactory;
-use Vinkla\Backup\Sources\MysqlDumpSource;
+use Vinkla\Backup\ProfileRegistryFactory;
+use Vinkla\Backup\Sources\DatabaseSource;
 use Zenstruck\Backup\Executor;
 
 /**
@@ -28,14 +29,19 @@ class ServiceProviderTest extends AbstractTestCase
 {
     use ServiceProviderTrait;
 
-    public function testBackupProfileIsInjectable()
-    {
-        $this->assertIsInjectable(BackupProfile::class);
-    }
-
     public function testProfileFactoryIsInjectable()
     {
         $this->assertIsInjectable(ProfileFactory::class);
+    }
+
+    public function testProfileRegistryFactoryIsInjectable()
+    {
+        $this->assertIsInjectable(ProfileRegistryFactory::class);
+    }
+
+    public function testProfileBuilderFactoryIsInjectable()
+    {
+        $this->assertIsInjectable(ProfileBuilderFactory::class);
     }
 
     public function testExecutorIsInjectable()
@@ -55,6 +61,6 @@ class ServiceProviderTest extends AbstractTestCase
 
     public function testMySqlDumpSourceIsInjectable()
     {
-        $this->assertIsInjectable(MysqlDumpSource::class);
+        $this->assertIsInjectable(DatabaseSource::class);
     }
 }

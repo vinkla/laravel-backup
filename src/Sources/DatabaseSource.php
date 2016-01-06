@@ -13,14 +13,14 @@ namespace Vinkla\Backup\Sources;
 
 use Illuminate\Contracts\Config\Repository;
 use InvalidArgumentException;
-use Zenstruck\Backup\Source\MySqlDumpSource as Source;
+use Zenstruck\Backup\Source\MySqlDumpSource;
 
 /**
- * This is the mysql dump source class.
+ * This is the database source class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class MysqlDumpSource implements SourceInterface
+class DatabaseSource implements SourceInterface
 {
     /**
      * The database manager instance.
@@ -30,7 +30,7 @@ class MysqlDumpSource implements SourceInterface
     protected $config;
 
     /**
-     * Create a new backup factory instance.
+     * Create a new database source instance.
      *
      * @param \Illuminate\Contracts\Config\Repository $config
      *
@@ -42,13 +42,13 @@ class MysqlDumpSource implements SourceInterface
     }
 
     /**
-     * Create and register the source.
+     * Bootstrap the source.
      *
      * @throws \InvalidArgumentException
      *
      * @return \Zenstruck\Backup\Source\MySqlDumpSource
      */
-    public function create()
+    public function bootstrap()
     {
         $connection = $this->getDatabaseConnection();
 
@@ -58,7 +58,7 @@ class MysqlDumpSource implements SourceInterface
             throw new InvalidArgumentException("Unsupported database driver [{$config['driver']}].");
         }
 
-        return new Source(self::class, $config['database'], $config['host'], $config['username'], $config['password']);
+        return new MySqlDumpSource($this->getName(), $config['database'], $config['host'], $config['username'], $config['password']);
     }
 
     /**
@@ -69,5 +69,15 @@ class MysqlDumpSource implements SourceInterface
     public function getDatabaseConnection()
     {
         return $this->config->get('database.default');
+    }
+
+    /**
+     * Get the source name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return 'database';
     }
 }

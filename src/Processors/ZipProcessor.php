@@ -11,22 +11,32 @@
 
 namespace Vinkla\Backup\Processors;
 
-use Zenstruck\Backup\Processor\ZipArchiveProcessor as Processor;
+use Zenstruck\Backup\Processor\ZipArchiveProcessor;
 
 /**
- * This is the zip archive processor class.
+ * This is the zip processor class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class ZipArchiveProcessor implements ProcessorInterface
+class ZipProcessor implements ProcessorInterface
 {
     /**
-     * Create and register the processor.
+     * Bootstrap the processor.
      *
      * @return \Zenstruck\Backup\Processor\ZipArchiveProcessor
      */
-    public function create()
+    public function bootstrap()
     {
-        return new Processor(self::class);
+        return new ZipArchiveProcessor($this->getName());
+    }
+
+    /**
+     * Get the processor name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return 'zip';
     }
 }

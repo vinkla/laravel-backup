@@ -19,9 +19,16 @@ namespace Vinkla\Backup\Namers;
 interface NamerInterface
 {
     /**
-     * Create and register the namer.
+     * Bootstrap the namer.
      *
      * @return \Zenstruck\Backup\Namer
      */
-    public function create();
+    public function bootstrap();
+
+    /**
+     * Get the namer name.
+     *
+     * @return string
+     */
+    public function getName();
 }

@@ -11,32 +11,32 @@
 
 namespace Vinkla\Backup\Sources;
 
-use Zenstruck\Backup\Source\RsyncSource as Source;
+use Zenstruck\Backup\Source\RsyncSource;
 
 /**
- * This is the rsync source class.
+ * This is the uploads source class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class RsyncSource implements SourceInterface
+class UploadsSource implements SourceInterface
 {
     /**
-     * Create and register the source.
+     * Bootstrap the source.
      *
      * @return \Zenstruck\Backup\Source\RsyncSource
      */
-    public function create()
+    public function make()
     {
-        return new Source(self::class, $this->getSourcePath());
+        return new RsyncSource($this->getName(), public_path('uploads'));
     }
 
     /**
-     * Get the source path.
+     * Get the source name.
      *
      * @return string
      */
-    public function getSourcePath()
+    public function getName()
     {
-        return public_path();
+        return 'uploads';
     }
 }

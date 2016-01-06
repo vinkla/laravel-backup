@@ -12,10 +12,11 @@
 namespace Vinkla\Backup\Commands;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
-use Vinkla\Backup\BackupProfile;
 use Zenstruck\Backup\Executor;
 use Zenstruck\Backup\Profile;
+use Zenstruck\Backup\ProfileRegistry;
 
 /**
  * This is the run command class.
@@ -39,11 +40,11 @@ class RunCommand extends Command
     protected $description = 'Run a backup profile';
 
     /**
-     * The profile instance.
+     * The profile registry instance.
      *
-     * @var \Vinkla\Backup\BackupProfile
+     * @var \Zenstruck\Backup\ProfileRegistry
      */
-    protected $profile;
+    protected $registry;
 
     /**
      * The executor instance.
@@ -55,14 +56,12 @@ class RunCommand extends Command
     /**
      * Create a new run command instance.
      *
-     * @param \Vinkla\Backup\BackupProfile $profile
+     * @param \Zenstruck\Backup\ProfileRegistry $registry
      * @param \Zenstruck\Backup\Executor $executor
-     *
-     * @return void
      */
-    public function __construct(BackupProfile $profile, Executor $executor)
+    public function __construct(ProfileRegistry $registry, Executor $executor)
     {
-        $this->profile = $profile;
+        $this->registry = $registry;
         $this->executor = $executor;
 
         parent::__construct();
@@ -75,13 +74,25 @@ class RunCommand extends Command
      */
     public function handle()
     {
-        $profile = $this->profile->get();
+        $profile = $this->registry->get($this->argument('profile'));
 
         $this->executor->backup($profile, $this->option('clear'));
 
         $this->info('Profile was successfully backed up!');
 
         return 0;
+    }
+
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return [
+            ['profile', InputArgument::REQUIRED, 'The backup profile to run'],
+        ];
     }
 
     /**

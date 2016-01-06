@@ -17,8 +17,9 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
 use Vinkla\Backup\Commands\ListCommand;
 use Vinkla\Backup\Commands\RunCommand;
-use Vinkla\Backup\Sources\MysqlDumpSource;
+use Vinkla\Backup\Sources\DatabaseSource;
 use Zenstruck\Backup\Executor;
+use Zenstruck\Backup\ProfileRegistry;
 
 /**
  * This is the backup service provider class.
@@ -67,8 +68,10 @@ class BackupServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerExecutor($this->app);
+        $this->registerBuilder($this->app);
         $this->registerFactory($this->app);
-        $this->registerProfile($this->app);
+        $this->registerRegistry($this->app);
+        $this->registerBindings($this->app);
         $this->registerSources($this->app);
         $this->registerRunCommand($this->app);
         $this->registerListCommand($this->app);
@@ -91,6 +94,22 @@ class BackupServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register the builder.
+     *
+     * @param \Illuminate\Contracts\Foundation\Application $app
+     *
+     * @return void
+     */
+    protected function registerBuilder(Application $app)
+    {
+        $app->singleton('backup.builder', function ($app) {
+            return new ProfileBuilderFactory($app);
+        });
+
+        $app->alias('backup.builder', ProfileBuilderFactory::class);
+    }
+
+    /**
      * Register the factory.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
@@ -100,29 +119,49 @@ class BackupServiceProvider extends ServiceProvider
     protected function registerFactory(Application $app)
     {
         $app->singleton('backup.factory', function ($app) {
-            return new ProfileFactory($app);
+            $builder = $app['backup.builder'];
+
+            return new ProfileFactory($builder);
         });
 
         $app->alias('backup.factory', ProfileFactory::class);
     }
 
     /**
-     * Register the profile.
+     * Register the registry.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
      *
      * @return void
      */
-    protected function registerProfile(Application $app)
+    protected function registerRegistry(Application $app)
     {
-        $app->singleton('backup.profile', function ($app) {
-            $config = $app['config'];
+        $app->singleton('backup.registry', function ($app) {
             $factory = $app['backup.factory'];
 
-            return new BackupProfile($config, $factory);
+            return new ProfileRegistryFactory($factory);
         });
 
-        $app->alias('backup.profile', BackupProfile::class);
+        $app->alias('backup.registry', ProfileRegistryFactory::class);
+    }
+
+    /**
+     * Register the bindings.
+     *
+     * @param \Illuminate\Contracts\Foundation\Application $app
+     *
+     * @return void
+     */
+    protected function registerBindings(Application $app)
+    {
+        $app->singleton('backup', function ($app) {
+            $config = $app['config']['backup'];
+            $registry = $app['backup.registry'];
+
+            return $registry->make($config);
+        });
+
+        $app->alias('backup', ProfileRegistry::class);
     }
 
     /**
@@ -134,10 +173,10 @@ class BackupServiceProvider extends ServiceProvider
      */
     protected function registerSources(Application $app)
     {
-        $app->bind(MysqlDumpSource::class, function ($app) {
+        $app->bind(DatabaseSource::class, function ($app) {
             $config = $app['config'];
 
-            return new MysqlDumpSource($config);
+            return new DatabaseSource($config);
         });
     }
 
@@ -151,9 +190,9 @@ class BackupServiceProvider extends ServiceProvider
     protected function registerListCommand(Application $app)
     {
         $app->singleton('command.backuplist', function ($app) {
-            $profile = $app['backup.profile'];
+            $connection = $app['backup'];
 
-            return new ListCommand($profile);
+            return new ListCommand($connection);
         });
     }
 
@@ -167,10 +206,10 @@ class BackupServiceProvider extends ServiceProvider
     protected function registerRunCommand(Application $app)
     {
         $app->singleton('command.backuprun', function ($app) {
-            $profile = $app['backup.profile'];
+            $connection = $app['backup'];
             $executor = $app['backup.executor'];
 
-            return new RunCommand($profile, $executor);
+            return new RunCommand($connection, $executor);
         });
     }
 
@@ -183,9 +222,10 @@ class BackupServiceProvider extends ServiceProvider
     {
         return [
             'backup',
+            'backup.builder',
             'backup.executor',
             'backup.factory',
-            'backup.profile',
+            'backup.registry',
             'command.backuplist',
             'command.backuprun',
         ];

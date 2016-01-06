@@ -21,12 +21,22 @@ use Zenstruck\Backup\Namer\SimpleNamer as Namer;
 class SimpleNamer implements NamerInterface
 {
     /**
-     * Create and register the namer.
+     * Bootstrap the namer.
      *
      * @return \Zenstruck\Backup\Namer\SimpleNamer
      */
-    public function create()
+    public function bootstrap()
     {
-        return new Namer(self::class);
+        return new Namer($this->getName());
+    }
+
+    /**
+     * Get the namer name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return 'simple';
     }
 }

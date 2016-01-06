@@ -13,6 +13,34 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Backup Profiles
+    |--------------------------------------------------------------------------
+    |
+    | Pretty Mediocre photographic fake, they cut off your brother's hair.
+    | Good morning, Mom. What's the meaning of this. Huh? Crazy drunk drivers.
+    |
+    */
+
+    'profiles' => [
+
+        'main' => [
+            'sources' => ['database', 'uploads'],
+            'destinations' => ['local'],
+            'processor' => 'gzip',
+            'namer' => 'timestamp',
+        ],
+
+        'alternative' => [
+            'sources' => 'your-sources',
+            'destinations' => 'your-destinations',
+            'processor' => 'your-processor',
+            'namer' => 'your-namer',
+        ],
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Backup Sources
     |--------------------------------------------------------------------------
     |
@@ -22,8 +50,8 @@ return [
     */
 
     'sources' => [
-        'Vinkla\Backup\Sources\RsyncSource',
-        'Vinkla\Backup\Sources\MysqlDumpSource',
+        'Vinkla\Backup\Sources\DatabaseSource',
+        'Vinkla\Backup\Sources\UploadsSource',
     ],
 
     /*
@@ -37,12 +65,12 @@ return [
     */
 
     'destinations' => [
-        'Vinkla\Backup\Destinations\StreamDestination',
+        'Vinkla\Backup\Destinations\LocalDestination',
     ],
 
     /*
     |--------------------------------------------------------------------------
-    | Backup Processor
+    | Backup Processors
     |--------------------------------------------------------------------------
     |
     | Pretty Mediocre photographic fake, they cut off your brother's hair.
@@ -50,11 +78,14 @@ return [
     |
     */
 
-    'processor' => 'Vinkla\Backup\Processors\GzipArchiveProcessor',
+    'processors' => [
+        'Vinkla\Backup\Processors\GzipProcessor',
+        'Vinkla\Backup\Processors\ZipProcessor',
+    ],
 
     /*
     |--------------------------------------------------------------------------
-    | Backup Namer
+    | Backup Namers
     |--------------------------------------------------------------------------
     |
     | Pretty Mediocre photographic fake, they cut off your brother's hair.
@@ -62,6 +93,9 @@ return [
     |
     */
 
-    'namer' => 'Vinkla\Backup\Namers\TimestampNamer',
+    'namers' => [
+        'Vinkla\Backup\Namers\SimpleNamer',
+        'Vinkla\Backup\Namers\TimestampNamer',
+    ],
 
 ];

@@ -19,9 +19,16 @@ namespace Vinkla\Backup\Sources;
 interface SourceInterface
 {
     /**
-     * Create and register the source.
+     * Bootstrap the source.
      *
      * @return \Zenstruck\Backup\Source
      */
-    public function create();
+    public function bootstrap();
+
+    /**
+     * Get the source name.
+     *
+     * @return string
+     */
+    public function getName();
 }

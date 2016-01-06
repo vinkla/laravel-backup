@@ -19,9 +19,16 @@ namespace Vinkla\Backup\Processors;
 interface ProcessorInterface
 {
     /**
-     * Create and register the processor.
+     * Bootstrap the processor.
      *
      * @return \Zenstruck\Backup\Processor
      */
-    public function create();
+    public function bootstrap();
+
+    /**
+     * Get the processor name.
+     *
+     * @return string
+     */
+    public function getName();
 }
