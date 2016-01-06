@@ -12,8 +12,6 @@
 namespace Vinkla\Tests\Backup;
 
 use GrahamCampbell\TestBenchCore\ServiceProviderTrait;
-use Vinkla\Backup\Commands\ListCommand;
-use Vinkla\Backup\Commands\RunCommand;
 use Vinkla\Backup\ProfileBuilderFactory;
 use Vinkla\Backup\ProfileFactory;
 use Vinkla\Backup\ProfileRegistryFactory;
@@ -47,16 +45,6 @@ class ServiceProviderTest extends AbstractTestCase
     public function testExecutorIsInjectable()
     {
         $this->assertIsInjectable(Executor::class);
-    }
-
-    public function testListCommandIsInjectable()
-    {
-        $this->assertIsInjectable(ListCommand::class);
-    }
-
-    public function testRunCommandIsInjectable()
-    {
-        $this->assertIsInjectable(RunCommand::class);
     }
 
     public function testMySqlDumpSourceIsInjectable()

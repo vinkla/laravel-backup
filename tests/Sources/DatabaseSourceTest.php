@@ -11,17 +11,21 @@
 
 namespace Vinkla\Tests\Backup\Sources;
 
-use Vinkla\Backup\Sources\RsyncSource;
+use Illuminate\Contracts\Config\Repository;
+use Mockery;
+use Vinkla\Backup\Sources\DatabaseSource;
 
 /**
- * This is the rsync source test class.
+ * This is the mysql dump source test class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class RsyncSourceTest extends AbstractSourceTestCase
+class DatabaseSourceTest extends AbstractSourceTestCase
 {
     public function getFactory()
     {
-        return new RsyncSource();
+        $config = Mockery::mock(Repository::class);
+
+        return new DatabaseSource($config);
     }
 }

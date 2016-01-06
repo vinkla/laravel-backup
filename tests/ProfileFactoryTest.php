@@ -11,6 +11,8 @@
 
 namespace Vinkla\Tests\Backup;
 
+use Mockery;
+use Vinkla\Backup\ProfileBuilderFactory;
 use Vinkla\Backup\ProfileFactory;
 
 /**
@@ -28,11 +30,9 @@ class ProfileFactoryTest extends AbstractTestCase
         $factory = $this->getProfileFactory();
 
         $factory->make([
-            'destinations' => [
-                'Vinkla\Backup\Destinations\StreamDestination',
-            ],
-            'processor' => '',
-            'namer' => '',
+            'destinations' => 'your-destinations',
+            'processor' => 'your-processor',
+            'namer' => 'your-namer',
         ]);
     }
 
@@ -44,12 +44,9 @@ class ProfileFactoryTest extends AbstractTestCase
         $factory = $this->getProfileFactory();
 
         $factory->make([
-            'sources' => [
-                'Vinkla\Backup\Sources\RsyncSource',
-                'Vinkla\Backup\Sources\MysqlDumpSource',
-            ],
-            'processor' => '',
-            'namer' => '',
+            'sources' => 'your-sources',
+            'processor' => 'your-processor',
+            'namer' => 'your-namer',
         ]);
     }
 
@@ -61,14 +58,9 @@ class ProfileFactoryTest extends AbstractTestCase
         $factory = $this->getProfileFactory();
 
         $factory->make([
-            'sources' => [
-                'Vinkla\Backup\Sources\RsyncSource',
-                'Vinkla\Backup\Sources\MysqlDumpSource',
-            ],
-            'destinations' => [
-                'Vinkla\Backup\Destinations\StreamDestination',
-            ],
-            'namer' => '',
+            'sources' => 'your-sources',
+            'destinations' => 'your-destinations',
+            'namer' => 'your-namer',
         ]);
     }
 
@@ -80,19 +72,16 @@ class ProfileFactoryTest extends AbstractTestCase
         $factory = $this->getProfileFactory();
 
         $factory->make([
-            'sources' => [
-                'Vinkla\Backup\Sources\RsyncSource',
-                'Vinkla\Backup\Sources\MysqlDumpSource',
-            ],
-            'destinations' => [
-                'Vinkla\Backup\Destinations\StreamDestination',
-            ],
-            'processor' => '',
+            'sources' => 'your-sources',
+            'destinations' => 'your-destinations',
+            'processor' => 'your-processor',
         ]);
     }
 
     protected function getProfileFactory()
     {
-        return new ProfileFactory($this->app);
+        $builder = Mockery::mock(ProfileBuilderFactory::class);
+
+        return new ProfileFactory($builder);
     }
 }

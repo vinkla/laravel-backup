@@ -11,17 +11,17 @@
 
 namespace Vinkla\Tests\Backup\Processors;
 
-use Vinkla\Backup\Processors\GzipArchiveProcessor;
+use Vinkla\Backup\Processors\GzipProcessor;
 
 /**
  * This is the gzip archive processor test class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class GzipArchiveProcessorTest extends AbstractProcessorTestCase
+class GzipProcessorTest extends AbstractProcessorTestCase
 {
     public function getFactory()
     {
-        return new GzipArchiveProcessor();
+        return new GzipProcessor();
     }
 }

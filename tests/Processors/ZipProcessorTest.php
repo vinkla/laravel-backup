@@ -11,17 +11,17 @@
 
 namespace Vinkla\Tests\Backup\Processors;
 
-use Vinkla\Backup\Processors\ZipArchiveProcessor;
+use Vinkla\Backup\Processors\ZipProcessor;
 
 /**
  * This is the zip archive processor test class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class ZipArchiveProcessorTest extends AbstractProcessorTestCase
+class ZipProcessorTest extends AbstractProcessorTestCase
 {
     public function getFactory()
     {
-        return new ZipArchiveProcessor();
+        return new ZipProcessor();
     }
 }

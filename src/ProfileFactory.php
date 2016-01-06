@@ -92,7 +92,7 @@ class ProfileFactory
      * Get the profile.
      *
      * @param \Zenstruck\Backup\ProfileBuilder $builder
-     * @param array $config
+     * @param array                            $config
      *
      * @return \Zenstruck\Backup\Profile
      */

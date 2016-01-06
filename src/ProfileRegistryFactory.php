@@ -32,8 +32,6 @@ class ProfileRegistryFactory
      * Create a new profile registry factory instance.
      *
      * @param \Vinkla\Backup\ProfileFactory $profile
-     *
-     * @return void
      */
     public function __construct(ProfileFactory $profile)
     {
@@ -97,7 +95,7 @@ class ProfileRegistryFactory
 
         foreach (array_get($config, 'profiles') as $name => $profile) {
             $profile = $this->createProfile(array_add($profile, 'name', $name));
-            
+
             $registry->add($profile);
         }
 

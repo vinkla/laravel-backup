@@ -57,7 +57,7 @@ class RunCommand extends Command
      * Create a new run command instance.
      *
      * @param \Zenstruck\Backup\ProfileRegistry $registry
-     * @param \Zenstruck\Backup\Executor $executor
+     * @param \Zenstruck\Backup\Executor        $executor
      */
     public function __construct(ProfileRegistry $registry, Executor $executor)
     {

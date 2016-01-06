@@ -9,19 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Vinkla\Tests\Backup\Destinations;
+namespace Vinkla\Tests\Backup\Sources;
 
-use Vinkla\Backup\Destinations\StreamDestination;
+use Vinkla\Backup\Sources\UploadsSource;
 
 /**
- * This is the stream destination test class.
+ * This is the rsync source test class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class StreamDestinationTest extends AbstractDestinationTestCase
+class UploadsSourceTest extends AbstractSourceTestCase
 {
     public function getFactory()
     {
-        return new StreamDestination();
+        return new UploadsSource();
     }
 }

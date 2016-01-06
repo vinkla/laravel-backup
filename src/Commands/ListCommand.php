@@ -47,8 +47,6 @@ class ListCommand extends Command
      * Create a new list command instance.
      *
      * @param \Zenstruck\Backup\ProfileRegistry $registry
-     *
-     * @return void
      */
     public function __construct(ProfileRegistry $registry)
     {

@@ -25,7 +25,7 @@ class UploadsSource implements SourceInterface
      *
      * @return \Zenstruck\Backup\Source\RsyncSource
      */
-    public function make()
+    public function bootstrap()
     {
         return new RsyncSource($this->getName(), public_path('uploads'));
     }

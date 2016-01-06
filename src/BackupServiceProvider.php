@@ -30,8 +30,6 @@ class BackupServiceProvider extends ServiceProvider
 {
     /**
      * Boot the service provider.
-     *
-     * @return void
      */
     public function boot()
     {
@@ -44,8 +42,6 @@ class BackupServiceProvider extends ServiceProvider
      * Setup the config.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
-     *
-     * @return void
      */
     protected function setupConfig(Application $app)
     {
@@ -62,8 +58,6 @@ class BackupServiceProvider extends ServiceProvider
 
     /**
      * Register the service provider.
-     *
-     * @return void
      */
     public function register()
     {
@@ -97,8 +91,6 @@ class BackupServiceProvider extends ServiceProvider
      * Register the builder.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
-     *
-     * @return void
      */
     protected function registerBuilder(Application $app)
     {
@@ -113,8 +105,6 @@ class BackupServiceProvider extends ServiceProvider
      * Register the factory.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
-     *
-     * @return void
      */
     protected function registerFactory(Application $app)
     {
@@ -131,8 +121,6 @@ class BackupServiceProvider extends ServiceProvider
      * Register the registry.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
-     *
-     * @return void
      */
     protected function registerRegistry(Application $app)
     {
@@ -149,8 +137,6 @@ class BackupServiceProvider extends ServiceProvider
      * Register the bindings.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
-     *
-     * @return void
      */
     protected function registerBindings(Application $app)
     {
@@ -168,8 +154,6 @@ class BackupServiceProvider extends ServiceProvider
      * Register the sources.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
-     *
-     * @return void
      */
     protected function registerSources(Application $app)
     {
@@ -184,8 +168,6 @@ class BackupServiceProvider extends ServiceProvider
      * Register the list command.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
-     *
-     * @return void
      */
     protected function registerListCommand(Application $app)
     {
@@ -200,8 +182,6 @@ class BackupServiceProvider extends ServiceProvider
      * Register the run command.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
-     *
-     * @return void
      */
     protected function registerRunCommand(Application $app)
     {
