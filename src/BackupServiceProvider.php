@@ -110,10 +110,8 @@ class BackupServiceProvider extends ServiceProvider
      */
     protected function registerFactory(Application $app)
     {
-        $app->singleton('backup.factory', function ($app) {
-            $builder = $app['backup.builder'];
-
-            return new ProfileFactory($builder);
+        $app->singleton('backup.factory', function () {
+            return new ProfileFactory();
         });
 
         $app->alias('backup.factory', ProfileFactory::class);
@@ -127,9 +125,10 @@ class BackupServiceProvider extends ServiceProvider
     protected function registerRegistry(Application $app)
     {
         $app->singleton('backup.registry', function ($app) {
+            $builder = $app['backup.builder'];
             $factory = $app['backup.factory'];
 
-            return new ProfileRegistryFactory($factory);
+            return new ProfileRegistryFactory($builder, $factory);
         });
 
         $app->alias('backup.registry', ProfileRegistryFactory::class);

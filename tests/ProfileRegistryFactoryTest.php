@@ -12,9 +12,9 @@
 namespace Vinkla\Tests\Backup;
 
 use Mockery;
+use Vinkla\Backup\ProfileBuilderFactory;
 use Vinkla\Backup\ProfileFactory;
 use Vinkla\Backup\ProfileRegistryFactory;
-use Zenstruck\Backup\ProfileRegistry;
 
 /**
  * This is the profile registry factory test class.
@@ -23,15 +23,6 @@ use Zenstruck\Backup\ProfileRegistry;
  */
 class ProfileRegistryFactoryTest extends AbstractTestCase
 {
-    public function testMakeStandard()
-    {
-        $factory = $this->getProfileRegistryFactory();
-
-        $return = $factory->make(['profiles' => []]);
-
-        $this->assertInstanceOf(ProfileRegistry::class, $return);
-    }
-
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -44,8 +35,9 @@ class ProfileRegistryFactoryTest extends AbstractTestCase
 
     protected function getProfileRegistryFactory()
     {
+        $builder = new ProfileBuilderFactory($this->app);
         $factory = Mockery::mock(ProfileFactory::class);
 
-        return new ProfileRegistryFactory($factory);
+        return new ProfileRegistryFactory($builder, $factory);
     }
 }

@@ -11,9 +11,7 @@
 
 namespace Vinkla\Tests\Backup;
 
-use Vinkla\Backup\ProfileBuilderFactory;
 use Vinkla\Backup\ProfileFactory;
-use Zenstruck\Backup\Profile;
 
 /**
  * This is the profile factory test class.
@@ -99,8 +97,6 @@ class ProfileFactoryTest extends AbstractTestCase
 
     protected function getProfileFactory()
     {
-        $builder = new ProfileBuilderFactory($this->app);
-
-        return new ProfileFactory($builder);
+        return new ProfileFactory();
     }
 }

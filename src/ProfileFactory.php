@@ -12,7 +12,7 @@
 namespace Vinkla\Backup;
 
 use InvalidArgumentException;
-use Zenstruck\Backup\ProfileBuilder;
+use Zenstruck\Backup\Profile;
 
 /**
  * This is the profile factory class.
@@ -21,23 +21,6 @@ use Zenstruck\Backup\ProfileBuilder;
  */
 class ProfileFactory
 {
-    /**
-     * The profile builder factory instance.
-     *
-     * @var \Vinkla\Backup\ProfileBuilderFactory
-     */
-    protected $builder;
-
-    /**
-     * Create a new profile registry builder instance.
-     *
-     * @param \Vinkla\Backup\ProfileBuilderFactory $builder
-     */
-    public function __construct(ProfileBuilderFactory $builder)
-    {
-        $this->builder = $builder;
-    }
-
     /**
      * Make the profile.
      *
@@ -49,9 +32,7 @@ class ProfileFactory
     {
         $config = $this->getConfig($config);
 
-        $builder = $this->createBuilder($config);
-
-        return $this->getProfile($builder, $config);
+        return $this->getProfile($config);
     }
 
     /**
@@ -91,14 +72,13 @@ class ProfileFactory
     /**
      * Get the profile.
      *
-     * @param \Zenstruck\Backup\ProfileBuilder $builder
-     * @param array                            $config
+     * @param array $config
      *
      * @return \Zenstruck\Backup\Profile
      */
-    protected function getProfile(ProfileBuilder $builder, array $config)
+    protected function getProfile(array $config)
     {
-        return $builder->create(
+        return new Profile(
             array_get($config, 'name'),
             array_get($config, 'scratch_dir', storage_path('backups')),
             array_get($config, 'processor'),

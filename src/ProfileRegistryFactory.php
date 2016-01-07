@@ -12,6 +12,7 @@
 namespace Vinkla\Backup;
 
 use InvalidArgumentException;
+use Zenstruck\Backup\ProfileBuilder;
 use Zenstruck\Backup\ProfileRegistry;
 
 /**
@@ -22,7 +23,14 @@ use Zenstruck\Backup\ProfileRegistry;
 class ProfileRegistryFactory
 {
     /**
-     * The profile factory instance.
+     * The profile builder factory.
+     *
+     * @var \Vinkla\Backup\ProfileBuilderFactory
+     */
+    protected $builder;
+
+    /**
+     * The profile factory.
      *
      * @var \Vinkla\Backup\ProfileFactory
      */
@@ -31,10 +39,12 @@ class ProfileRegistryFactory
     /**
      * Create a new profile registry factory instance.
      *
+     * @param \Vinkla\Backup\ProfileBuilderFactory $builder
      * @param \Vinkla\Backup\ProfileFactory $profile
      */
-    public function __construct(ProfileFactory $profile)
+    public function __construct(ProfileBuilderFactory $builder, ProfileFactory $profile)
     {
+        $this->builder = $builder;
         $this->profile = $profile;
     }
 
@@ -49,7 +59,9 @@ class ProfileRegistryFactory
     {
         $config = $this->getConfig($config);
 
-        return $this->getProfileRegistry($config);
+        $builder = $this->createBuilder($config);
+
+        return $this->getProfileRegistry($builder, $config);
     }
 
     /**
@@ -71,6 +83,18 @@ class ProfileRegistryFactory
     }
 
     /**
+     * Create a new profile builder.
+     *
+     * @param array $config
+     *
+     * @return \Zenstruck\Backup\Profile
+     */
+    private function createBuilder(array $config)
+    {
+        return $this->builder->make($config);
+    }
+
+    /**
      * Create a new profile.
      *
      * @param array $config
@@ -85,16 +109,26 @@ class ProfileRegistryFactory
     /**
      * Get the profile registry.
      *
+     * @param \Zenstruck\Backup\ProfileBuilder $builder
      * @param array $config
      *
      * @return \Zenstruck\Backup\ProfileRegistry
      */
-    protected function getProfileRegistry(array $config)
+    protected function getProfileRegistry(ProfileBuilder $builder, array $config)
     {
         $registry = new ProfileRegistry();
 
         foreach (array_get($config, 'profiles') as $name => $profile) {
             $profile = $this->createProfile(array_add($profile, 'name', $name));
+
+            $profile = $builder->create(
+                $profile->getName(),
+                $profile->getScratchDir(),
+                $profile->getProcessor(),
+                $profile->getNamer(),
+                $profile->getSources(),
+                $profile->getDestinations()
+            );
 
             $registry->add($profile);
         }
