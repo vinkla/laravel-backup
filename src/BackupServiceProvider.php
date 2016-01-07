@@ -42,6 +42,8 @@ class BackupServiceProvider extends ServiceProvider
      * Setup the config.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
+     *
+     * @return void
      */
     protected function setupConfig(Application $app)
     {
