@@ -11,19 +11,15 @@
 
 namespace Vinkla\Backup\Commands;
 
-use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
-use Zenstruck\Backup\Executor;
-use Zenstruck\Backup\Profile;
-use Zenstruck\Backup\ProfileRegistry;
 
 /**
  * This is the run command class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class RunCommand extends Command
+class RunCommand extends AbstractCommand
 {
     /**
      * The console command name.
@@ -40,41 +36,15 @@ class RunCommand extends Command
     protected $description = 'Run a backup profile';
 
     /**
-     * The profile registry instance.
-     *
-     * @var \Zenstruck\Backup\ProfileRegistry
-     */
-    protected $registry;
-
-    /**
-     * The executor instance.
-     *
-     * @var \Zenstruck\Backup\Executor
-     */
-    protected $executor;
-
-    /**
-     * Create a new run command instance.
-     *
-     * @param \Zenstruck\Backup\ProfileRegistry $registry
-     * @param \Zenstruck\Backup\Executor        $executor
-     */
-    public function __construct(ProfileRegistry $registry, Executor $executor)
-    {
-        $this->registry = $registry;
-        $this->executor = $executor;
-
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function handle()
     {
-        $profile = $this->registry->get($this->argument('profile'));
+        $registry = $this->getRegistry();
+
+        $profile = $registry->get($this->argument('profile'));
 
         $this->executor->backup($profile, $this->option('clear'));
 

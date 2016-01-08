@@ -11,16 +11,14 @@
 
 namespace Vinkla\Backup\Commands;
 
-use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
-use Zenstruck\Backup\ProfileRegistry;
 
 /**
  * This is the list command class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class ListCommand extends Command
+class ListCommand extends AbstractCommand
 {
     /**
      * The console command name.
@@ -37,25 +35,6 @@ class ListCommand extends Command
     protected $description = 'List backups';
 
     /**
-     * The profile registry instance.
-     *
-     * @var \Zenstruck\Backup\ProfileRegistry
-     */
-    protected $registry;
-
-    /**
-     * Create a new list command instance.
-     *
-     * @param \Zenstruck\Backup\ProfileRegistry $registry
-     */
-    public function __construct(ProfileRegistry $registry)
-    {
-        $this->registry = $registry;
-
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @throws \RuntimeException
@@ -64,13 +43,15 @@ class ListCommand extends Command
      */
     public function handle()
     {
-        if (0 === count($this->registry)) {
+        $registry = $this->getRegistry();
+
+        if (0 === count($registry)) {
             $this->error('No profiles configured.');
 
             return 1;
         }
 
-        $profile = $this->registry->get($this->argument('profile'));
+        $profile = $registry->get($this->argument('profile'));
 
         foreach ($profile->getDestinations() as $destination) {
             $this->line('');

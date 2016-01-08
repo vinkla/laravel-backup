@@ -19,7 +19,6 @@ use Vinkla\Backup\Commands\ListCommand;
 use Vinkla\Backup\Commands\RunCommand;
 use Vinkla\Backup\Sources\DatabaseSource;
 use Zenstruck\Backup\Executor;
-use Zenstruck\Backup\ProfileRegistry;
 
 /**
  * This is the backup service provider class.
@@ -66,7 +65,6 @@ class BackupServiceProvider extends ServiceProvider
         $this->registerExecutor($this->app);
         $this->registerBuilder($this->app);
         $this->registerRegistry($this->app);
-        $this->registerBindings($this->app);
         $this->registerSources($this->app);
         $this->registerRunCommand($this->app);
         $this->registerListCommand($this->app);
@@ -119,23 +117,6 @@ class BackupServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the bindings.
-     *
-     * @param \Illuminate\Contracts\Foundation\Application $app
-     */
-    protected function registerBindings(Application $app)
-    {
-        $app->singleton('backup', function ($app) {
-            $config = $app['config']['backup'];
-            $registry = $app['backup.registry'];
-
-            return $registry->make($config);
-        });
-
-        $app->alias('backup', ProfileRegistry::class);
-    }
-
-    /**
      * Register the sources.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
@@ -157,9 +138,11 @@ class BackupServiceProvider extends ServiceProvider
     protected function registerListCommand(Application $app)
     {
         $app->singleton('command.backuplist', function ($app) {
-            $connection = $app['backup'];
+            $config = $app['config'];
+            $registry = $app['backup.registry'];
+            $executor = $app['backup.executor'];
 
-            return new ListCommand($connection);
+            return new ListCommand($config, $registry, $executor);
         });
     }
 
@@ -171,10 +154,11 @@ class BackupServiceProvider extends ServiceProvider
     protected function registerRunCommand(Application $app)
     {
         $app->singleton('command.backuprun', function ($app) {
-            $connection = $app['backup'];
+            $config = $app['config'];
+            $registry = $app['backup.registry'];
             $executor = $app['backup.executor'];
 
-            return new RunCommand($connection, $executor);
+            return new RunCommand($config, $registry, $executor);
         });
     }
 
@@ -186,7 +170,6 @@ class BackupServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'backup',
             'backup.builder',
             'backup.executor',
             'backup.registry',
