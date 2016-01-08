@@ -31,13 +31,6 @@ return [
             'namer' => 'timestamp',
         ],
 
-        'alternative' => [
-            'sources' => ['your-sources'],
-            'destinations' => ['your-destinations'],
-            'processor' => 'your-processor',
-            'namer' => 'your-namer',
-        ],
-
     ],
 
     /*
