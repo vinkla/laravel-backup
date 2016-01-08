@@ -119,7 +119,7 @@ class ProfileRegistryFactory
                 array_get($profile, 'destinations')
             );
 
-            $registry->add($this->getProfile($builder, $profile));
+            $registry->add($profile);
         }
 
         return $registry;
