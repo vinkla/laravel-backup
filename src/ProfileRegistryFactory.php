@@ -72,7 +72,7 @@ class ProfileRegistryFactory
             throw new InvalidArgumentException('Missing configuration key [profiles].');
         }
 
-        foreach (array_get($config, 'profile') as $profile) {
+        foreach (array_get($config, 'profiles') as $profile) {
             $keys = ['sources', 'destinations', 'processor', 'namer'];
 
             foreach ($keys as $key) {
