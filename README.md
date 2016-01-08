@@ -47,6 +47,13 @@ php artisan vendor:publish
 
 This will create a `config/backup.php` file in your app that you can modify to set your configuration. Also, make sure you check for changes to the original config file in this package between releases.
 
+Out of the box the backups will be stored in `storage/backups`. To prevent the backups from being commit be sure to add a `.gitignore` file to the backups directory with the following content.
+ 
+```
+*
+!.gitignore
+```
+
 ## Usage
 
 In order to run a backup use the command below.
