@@ -65,7 +65,6 @@ class BackupServiceProvider extends ServiceProvider
     {
         $this->registerExecutor($this->app);
         $this->registerBuilder($this->app);
-        $this->registerFactory($this->app);
         $this->registerRegistry($this->app);
         $this->registerBindings($this->app);
         $this->registerSources($this->app);
@@ -104,20 +103,6 @@ class BackupServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the factory.
-     *
-     * @param \Illuminate\Contracts\Foundation\Application $app
-     */
-    protected function registerFactory(Application $app)
-    {
-        $app->singleton('backup.factory', function () {
-            return new ProfileFactory();
-        });
-
-        $app->alias('backup.factory', ProfileFactory::class);
-    }
-
-    /**
      * Register the registry.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app
@@ -126,9 +111,8 @@ class BackupServiceProvider extends ServiceProvider
     {
         $app->singleton('backup.registry', function ($app) {
             $builder = $app['backup.builder'];
-            $factory = $app['backup.factory'];
 
-            return new ProfileRegistryFactory($builder, $factory);
+            return new ProfileRegistryFactory($builder);
         });
 
         $app->alias('backup.registry', ProfileRegistryFactory::class);
@@ -205,7 +189,6 @@ class BackupServiceProvider extends ServiceProvider
             'backup',
             'backup.builder',
             'backup.executor',
-            'backup.factory',
             'backup.registry',
             'command.backuplist',
             'command.backuprun',

@@ -30,22 +30,15 @@ class ProfileRegistryFactory
     protected $builder;
 
     /**
-     * The profile factory.
-     *
-     * @var \Vinkla\Backup\ProfileFactory
-     */
-    protected $profile;
-
-    /**
      * Create a new profile registry factory instance.
      *
      * @param \Vinkla\Backup\ProfileBuilderFactory $builder
-     * @param \Vinkla\Backup\ProfileFactory $profile
+     *
+     * @return void
      */
-    public function __construct(ProfileBuilderFactory $builder, ProfileFactory $profile)
+    public function __construct(ProfileBuilderFactory $builder)
     {
         $this->builder = $builder;
-        $this->profile = $profile;
     }
 
     /**
@@ -79,6 +72,16 @@ class ProfileRegistryFactory
             throw new InvalidArgumentException('Missing configuration key [profiles].');
         }
 
+        foreach (array_get($config, 'profile') as $profile) {
+            $keys = ['sources', 'destinations', 'processor', 'namer'];
+
+            foreach ($keys as $key) {
+                if (!array_key_exists($key, $profile)) {
+                    throw new InvalidArgumentException("Missing profile configuration key [$key].");
+                }
+            }
+        }
+
         return $config;
     }
 
@@ -95,18 +98,6 @@ class ProfileRegistryFactory
     }
 
     /**
-     * Create a new profile.
-     *
-     * @param array $config
-     *
-     * @return \Zenstruck\Backup\Profile
-     */
-    protected function createProfile(array $config)
-    {
-        return $this->profile->make($config);
-    }
-
-    /**
      * Get the profile registry.
      *
      * @param \Zenstruck\Backup\ProfileBuilder $builder
@@ -119,18 +110,16 @@ class ProfileRegistryFactory
         $registry = new ProfileRegistry();
 
         foreach (array_get($config, 'profiles') as $name => $profile) {
-            $profile = $this->createProfile(array_add($profile, 'name', $name));
-
             $profile = $builder->create(
-                $profile->getName(),
-                $profile->getScratchDir(),
-                $profile->getProcessor(),
-                $profile->getNamer(),
-                $profile->getSources(),
-                $profile->getDestinations()
+                array_get($profile, 'name'),
+                array_get($profile, 'scratch_dir', storage_path('backups')),
+                array_get($profile, 'processor'),
+                array_get($profile, 'namer'),
+                array_get($profile, 'sources'),
+                array_get($profile, 'destinations')
             );
 
-            $registry->add($profile);
+            $registry->add($this->getProfile($builder, $profile));
         }
 
         return $registry;
