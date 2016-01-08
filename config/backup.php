@@ -32,8 +32,8 @@ return [
         ],
 
         'alternative' => [
-            'sources' => 'your-sources',
-            'destinations' => 'your-destinations',
+            'sources' => ['your-sources'],
+            'destinations' => ['your-destinations'],
             'processor' => 'your-processor',
             'namer' => 'your-namer',
         ],
