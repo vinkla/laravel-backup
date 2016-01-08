@@ -111,7 +111,7 @@ class ProfileRegistryFactory
 
         foreach (array_get($config, 'profiles') as $name => $profile) {
             $profile = $builder->create(
-                array_get($profile, 'name'),
+                $name,
                 array_get($profile, 'scratch_dir', storage_path('backups')),
                 array_get($profile, 'processor'),
                 array_get($profile, 'namer'),
