@@ -31,6 +31,78 @@ class ProfileRegistryFactoryTest extends AbstractTestCase
         $factory->make([]);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testMakeWithoutSources()
+    {
+        $factory = $this->getProfileRegistryFactory();
+
+        $factory->make([
+            'profiles' => [
+                [
+                    'destinations' => 'your-destinations',
+                    'processor' => 'your-processor',
+                    'namer' => 'your-namer',
+                ],
+            ],
+        ]);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testMakeWithoutDestinations()
+    {
+        $factory = $this->getProfileRegistryFactory();
+
+        $factory->make([
+            'profiles' => [
+                [
+                    'sources' => 'your-sources',
+                    'processor' => 'your-processor',
+                    'namer' => 'your-namer',
+                ],
+            ],
+        ]);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testMakeWithoutProcessor()
+    {
+        $factory = $this->getProfileRegistryFactory();
+
+        $factory->make([
+            'profiles' => [
+                [
+                    'sources' => 'your-sources',
+                    'destinations' => 'your-destinations',
+                    'namer' => 'your-namer',
+                ],
+            ],
+        ]);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testMakeWithoutNamer()
+    {
+        $factory = $this->getProfileRegistryFactory();
+
+        $factory->make([
+            'profiles' => [
+                [
+                    'sources' => 'your-sources',
+                    'destinations' => 'your-destinations',
+                    'processor' => 'your-processor',
+                ],
+            ],
+        ]);
+    }
+
     protected function getProfileRegistryFactory()
     {
         $builder = new ProfileBuilderFactory($this->app);
