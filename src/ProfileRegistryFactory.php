@@ -110,7 +110,6 @@ class ProfileRegistryFactory
         $registry = new ProfileRegistry();
 
         foreach (array_get($config, 'profiles') as $name => $profile) {
-
             $profile = $builder->create(
                 array_get($profile, 'name'),
                 array_get($profile, 'scratch_dir', storage_path('backups')),
