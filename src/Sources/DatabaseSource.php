@@ -55,11 +55,17 @@ class DatabaseSource implements FactoryInterface
 
         $config = $this->config->get("database.connections.$connection");
 
-        if ($config['driver'] !== 'mysql') {
+        if (array_get($config, 'driver') !== 'mysql') {
             throw new InvalidArgumentException("Unsupported database driver [{$config['driver']}].");
         }
 
-        return new MySqlDumpSource($this->getName(), $config['database'], $config['host'], $config['username'], $config['password']);
+        return new MySqlDumpSource(
+            $this->getName(),
+            array_get($config, 'database'),
+            array_get($config, 'host'),
+            array_get($config, 'username'),
+            array_get($config, 'password')
+        );
     }
 
     /**
