@@ -44,7 +44,7 @@ class RunCommand extends AbstractCommand
     {
         $registry = $this->getRegistry();
 
-        $profile = $registry->get($this->argument('profile'));
+        $profile = $registry->get((string) $this->argument('profile'));
 
         $this->executor->backup($profile, $this->option('clear'));
 
