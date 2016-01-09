@@ -14,6 +14,7 @@ namespace Vinkla\Tests\Backup\Namers;
 use Vinkla\Backup\Namers\SimpleNamer;
 use Vinkla\Tests\Backup\AbstractTestCase;
 use Vinkla\Tests\Backup\FactoryTrait;
+use Zenstruck\Backup\Namer\SimpleNamer as Namer;
 
 /**
  * This is the simple namer test class.
@@ -23,6 +24,11 @@ use Vinkla\Tests\Backup\FactoryTrait;
 class SimpleNamerTest extends AbstractTestCase
 {
     use FactoryTrait;
+
+    public function testBootstrap()
+    {
+        $this->assertInstanceOf(Namer::class, $this->getFactory()->bootstrap());
+    }
 
     public function getFactory()
     {

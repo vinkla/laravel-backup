@@ -14,6 +14,7 @@ namespace Vinkla\Tests\Backup\Sources;
 use Vinkla\Backup\Sources\UploadsSource;
 use Vinkla\Tests\Backup\AbstractTestCase;
 use Vinkla\Tests\Backup\FactoryTrait;
+use Zenstruck\Backup\Source\RsyncSource;
 
 /**
  * This is the rsync source test class.
@@ -23,6 +24,11 @@ use Vinkla\Tests\Backup\FactoryTrait;
 class UploadsSourceTest extends AbstractTestCase
 {
     use FactoryTrait;
+
+    public function testBootstrap()
+    {
+        $this->assertInstanceOf(RsyncSource::class, $this->getFactory()->bootstrap());
+    }
 
     public function getFactory()
     {

@@ -14,6 +14,7 @@ namespace Vinkla\Tests\Backup\Processors;
 use Vinkla\Backup\Processors\ZipProcessor;
 use Vinkla\Tests\Backup\AbstractTestCase;
 use Vinkla\Tests\Backup\FactoryTrait;
+use Zenstruck\Backup\Processor\ZipArchiveProcessor;
 
 /**
  * This is the zip archive processor test class.
@@ -23,6 +24,11 @@ use Vinkla\Tests\Backup\FactoryTrait;
 class ZipProcessorTest extends AbstractTestCase
 {
     use FactoryTrait;
+
+    public function testBootstrap()
+    {
+        $this->assertInstanceOf(ZipArchiveProcessor::class, $this->getFactory()->bootstrap());
+    }
 
     public function getFactory()
     {
