@@ -11,6 +11,8 @@
 
 namespace Vinkla\Tests\Backup\Sources;
 
+use Illuminate\Contracts\Config\Repository;
+use ReflectionClass;
 use Vinkla\Backup\Sources\DatabaseSource;
 use Vinkla\Tests\Backup\AbstractTestCase;
 use Vinkla\Tests\Backup\FactoryTrait;
@@ -29,10 +31,21 @@ class DatabaseSourceTest extends AbstractTestCase
         return new DatabaseSource($this->app->config);
     }
 
+    public function testConfig()
+    {
+        $rc = new ReflectionClass($this->getFactory());
+        $property = $rc->getProperty('config');
+        $property->setAccessible(true);
+
+        $config = $property->getValue($this->getFactory());
+
+        $this->assertInstanceOf(Repository::class, $config);
+    }
+
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testWithoutMysqlDriver()
+    public function testBootstrapWithoutMysqlDriver()
     {
         $this->app->config->set('database.driver', 'sqlite');
 
