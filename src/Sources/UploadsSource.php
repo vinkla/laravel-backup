@@ -11,6 +11,7 @@
 
 namespace Vinkla\Backup\Sources;
 
+use Vinkla\Backup\FactoryInterface;
 use Zenstruck\Backup\Source\RsyncSource;
 
 /**
@@ -18,7 +19,7 @@ use Zenstruck\Backup\Source\RsyncSource;
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class UploadsSource implements SourceInterface
+class UploadsSource implements FactoryInterface
 {
     /**
      * Bootstrap the source.

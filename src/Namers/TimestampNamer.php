@@ -11,6 +11,7 @@
 
 namespace Vinkla\Backup\Namers;
 
+use Vinkla\Backup\FactoryInterface;
 use Zenstruck\Backup\Namer\TimestampNamer as Namer;
 
 /**
@@ -18,7 +19,7 @@ use Zenstruck\Backup\Namer\TimestampNamer as Namer;
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class TimestampNamer implements NamerInterface
+class TimestampNamer implements FactoryInterface
 {
     /**
      * Bootstrap the namer.

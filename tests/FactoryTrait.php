@@ -11,6 +11,8 @@
 
 namespace Vinkla\Tests\Backup;
 
+use Vinkla\Backup\FactoryInterface;
+
 /**
  * This is the factory trait.
  *
@@ -23,7 +25,10 @@ trait FactoryTrait
         $this->assertInstanceOf($this->getInterface(), $this->getFactory());
     }
 
-    abstract public function getInterface();
+    protected function getInterface()
+    {
+        return FactoryInterface::class;
+    }
 
     abstract public function getFactory();
 }

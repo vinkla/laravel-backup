@@ -12,14 +12,18 @@
 namespace Vinkla\Tests\Backup\Namers;
 
 use Vinkla\Backup\Namers\TimestampNamer;
+use Vinkla\Tests\Backup\AbstractTestCase;
+use Vinkla\Tests\Backup\FactoryTrait;
 
 /**
  * This is the timestamp namer test class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class TimestampNamerTest extends AbstractNamerTestCase
+class TimestampNamerTest extends AbstractTestCase
 {
+    use FactoryTrait;
+
     public function getFactory()
     {
         return new TimestampNamer();

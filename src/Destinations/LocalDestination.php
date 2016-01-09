@@ -11,6 +11,7 @@
 
 namespace Vinkla\Backup\Destinations;
 
+use Vinkla\Backup\FactoryInterface;
 use Zenstruck\Backup\Destination\StreamDestination;
 
 /**
@@ -18,7 +19,7 @@ use Zenstruck\Backup\Destination\StreamDestination;
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class LocalDestination implements DestinationInterface
+class LocalDestination implements FactoryInterface
 {
     /**
      * Bootstrap the destination.

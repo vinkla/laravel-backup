@@ -9,24 +9,24 @@
  * file that was distributed with this source code.
  */
 
-namespace Vinkla\Backup\Sources;
+namespace Vinkla\Backup;
 
 /**
- * This is the source interface.
+ * This is the factory interface.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-interface SourceInterface
+interface FactoryInterface
 {
     /**
-     * Bootstrap the source.
+     * Bootstrap the factory.
      *
-     * @return \Zenstruck\Backup\Source
+     * @return mixed
      */
     public function bootstrap();
 
     /**
-     * Get the source name.
+     * Get the destination name.
      *
      * @return string
      */

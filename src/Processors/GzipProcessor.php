@@ -11,6 +11,7 @@
 
 namespace Vinkla\Backup\Processors;
 
+use Vinkla\Backup\FactoryInterface;
 use Zenstruck\Backup\Processor\GzipArchiveProcessor;
 
 /**
@@ -18,7 +19,7 @@ use Zenstruck\Backup\Processor\GzipArchiveProcessor;
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class GzipProcessor implements ProcessorInterface
+class GzipProcessor implements FactoryInterface
 {
     /**
      * Bootstrap the processor.
