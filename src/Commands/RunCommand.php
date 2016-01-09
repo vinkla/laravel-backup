@@ -38,7 +38,7 @@ class RunCommand extends AbstractCommand
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return int
      */
     public function handle()
     {

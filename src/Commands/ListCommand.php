@@ -39,7 +39,7 @@ class ListCommand extends AbstractCommand
      *
      * @throws \RuntimeException
      *
-     * @return mixed
+     * @return int
      */
     public function handle()
     {
