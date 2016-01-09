@@ -92,7 +92,7 @@ class ProfileRegistryFactory
      *
      * @return \Zenstruck\Backup\Profile
      */
-    private function createBuilder(array $config)
+    protected function createBuilder(array $config)
     {
         return $this->builder->make($config);
     }
