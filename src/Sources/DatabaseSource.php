@@ -34,6 +34,8 @@ class DatabaseSource implements FactoryInterface
      * Create a new database source instance.
      *
      * @param \Illuminate\Contracts\Config\Repository $config
+     *
+     * @return void
      */
     public function __construct(Repository $config)
     {
