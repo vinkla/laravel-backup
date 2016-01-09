@@ -11,7 +11,6 @@
 
 namespace Vinkla\Tests\Backup\Sources;
 
-use Illuminate\Contracts\Config\Repository;
 use Mockery;
 use Vinkla\Backup\Sources\DatabaseSource;
 use Vinkla\Tests\Backup\AbstractTestCase;
@@ -28,8 +27,6 @@ class DatabaseSourceTest extends AbstractTestCase
 
     public function getFactory()
     {
-        $config = Mockery::mock(Repository::class);
-
-        return new DatabaseSource($config);
+        return new DatabaseSource($this->app->config);
     }
 }
