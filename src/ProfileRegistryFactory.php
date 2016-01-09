@@ -90,7 +90,7 @@ class ProfileRegistryFactory
      *
      * @param array $config
      *
-     * @return \Zenstruck\Backup\Profile
+     * @return \Zenstruck\Backup\ProfileBuilder
      */
     protected function createBuilder(array $config)
     {
