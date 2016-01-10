@@ -12,8 +12,7 @@
 namespace Vinkla\Tests\Backup\Destinations;
 
 use Vinkla\Backup\Destinations\LocalDestination;
-use Vinkla\Tests\Backup\AbstractTestCase;
-use Vinkla\Tests\Backup\FactoryTrait;
+use Vinkla\Tests\Backup\AbstractFactoryTestCase;
 use Zenstruck\Backup\Destination\StreamDestination;
 
 /**
@@ -21,10 +20,8 @@ use Zenstruck\Backup\Destination\StreamDestination;
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class LocalDestinationTest extends AbstractTestCase
+class LocalDestinationTest extends AbstractFactoryTestCase
 {
-    use FactoryTrait;
-
     public function testBootstrap()
     {
         $this->assertInstanceOf(StreamDestination::class, $this->getFactory()->bootstrap());

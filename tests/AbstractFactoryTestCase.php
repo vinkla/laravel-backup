@@ -14,11 +14,11 @@ namespace Vinkla\Tests\Backup;
 use Vinkla\Backup\FactoryInterface;
 
 /**
- * This is the factory trait.
+ * This is the abstract factory test case class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-trait FactoryTrait
+abstract class AbstractFactoryTestCase extends AbstractTestCase
 {
     public function testImplementsFactoryInterface()
     {

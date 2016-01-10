@@ -14,18 +14,15 @@ namespace Vinkla\Tests\Backup\Sources;
 use Illuminate\Contracts\Config\Repository;
 use ReflectionClass;
 use Vinkla\Backup\Sources\DatabaseSource;
-use Vinkla\Tests\Backup\AbstractTestCase;
-use Vinkla\Tests\Backup\FactoryTrait;
+use Vinkla\Tests\Backup\AbstractFactoryTestCase;
 
 /**
  * This is the mysql dump source test class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class DatabaseSourceTest extends AbstractTestCase
+class DatabaseSourceTest extends AbstractFactoryTestCase
 {
-    use FactoryTrait;
-
     public function getFactory()
     {
         return new DatabaseSource($this->app->config);
