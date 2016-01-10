@@ -22,18 +22,13 @@ trait FactoryTrait
 {
     public function testImplementsFactoryInterface()
     {
-        $this->assertInstanceOf($this->getInterface(), $this->getFactory());
+        $this->assertInstanceOf(FactoryInterface::class, $this->getFactory());
     }
 
     public function testNameIsString()
     {
         $this->assertTrue(is_string($this->getFactory()->getName()));
     }
-
-    protected function getInterface()
-    {
-        return FactoryInterface::class;
-    }
-
+    
     abstract public function getFactory();
 }
