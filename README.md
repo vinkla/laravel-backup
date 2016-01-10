@@ -47,7 +47,27 @@ php artisan vendor:publish
 
 This will create a `config/backup.php` file in your app that you can modify to set your configuration. Also, make sure you check for changes to the original config file in this package between releases.
 
-> Out of the box the backups will be stored in `storage/backups`. To prevent the backups from being commit be sure to add the directory to the `.gitignore` file.
+> Out of the box the backups will be stored in `storage/backups`. To prevent the backups from being committed be sure to add the directory to the `.gitignore` file.
+
+#### Backup Profiles
+
+The profiles array allows you to setup multiple backup profiles. Example configuration has been included, but you may add as many profiles as you would like.
+
+#### Backup Sources
+
+What to backup (i.e. database/files). The source fetches files and copies them to a "scratch" directory. These files are typically persisted between backups (improves rsync performance) but can be cleared by the executor.
+
+#### Backup Destinations
+
+Where to send the backup i.e. filesystem, S3, Dropbox, etc. We have provided a default local destination that will save the backup file the Laravel's storage directory (storage/backups).
+
+#### Backup Processors
+
+The processors converts the backup to a single file (i.e. zip/tar.gz). The processors use a namer to name the file (read more below).
+
+#### Backup Namers
+
+Generates the backup filename to be used by the processors. Below we've provided default namers. Of course, you may setup custom namers.
 
 ## Usage
 

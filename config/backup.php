@@ -71,7 +71,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | The processors converts the backup to a single file (i.e. zip/tar.gz).
-    | This step uses a namer to name the file (read more below).
+    | The processors use a namer to name the file (read more below).
     |
     */
 
