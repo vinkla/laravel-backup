@@ -11,6 +11,7 @@
 
 namespace Vinkla\Backup\Commands;
 
+use InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -42,15 +43,21 @@ class RunCommand extends AbstractCommand
      */
     public function handle()
     {
-        $registry = $this->getRegistry();
+        try {
+            $registry = $this->getRegistry();
 
-        $profile = $registry->get((string) $this->argument('profile'));
+            $profile = $registry->get((string) $this->argument('profile'));
 
-        $this->executor->backup($profile, $this->option('clear'));
+            $this->executor->backup($profile, $this->option('clear'));
 
-        $this->info('Profile was successfully backed up!');
+            $this->info('Profile was successfully backed up!');
 
-        return 0;
+            return 0;
+        } catch (InvalidArgumentException $e) {
+            $this->error($e->getMessage());
+
+            return 1;
+        }
     }
 
     /**

@@ -29,6 +29,6 @@ trait FactoryTrait
     {
         $this->assertTrue(is_string($this->getFactory()->getName()));
     }
-    
+
     abstract public function getFactory();
 }
