@@ -46,7 +46,7 @@ class RunCommand extends AbstractCommand
         try {
             $registry = $this->getRegistry();
 
-            $profile = $registry->get((string) $this->argument('profile'));
+            $profile = $registry->get($this->getProfileName());
 
             $this->info('Backup initiated! This may take a while...');
 
@@ -70,7 +70,7 @@ class RunCommand extends AbstractCommand
     protected function getArguments()
     {
         return [
-            ['profile', InputArgument::REQUIRED, 'The backup profile to run'],
+            ['profile', InputArgument::OPTIONAL, 'The backup profile to run'],
         ];
     }
 

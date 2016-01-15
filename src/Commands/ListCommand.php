@@ -51,7 +51,7 @@ class ListCommand extends AbstractCommand
             return 1;
         }
 
-        $profile = $registry->get((string) $this->argument('profile'));
+        $profile = $registry->get($this->getProfileName());
 
         foreach ($profile->getDestinations() as $destination) {
             $this->line('');

@@ -63,6 +63,20 @@ abstract class AbstractCommand extends Command
     }
 
     /**
+     * Get the profile name.
+     *
+     * @return string
+     */
+    protected function getProfileName()
+    {
+        if ($this->input->hasArgument('profile')) {
+            return $this->input->argument('profile');
+        }
+
+        return $this->config->get('backup.default');
+    }
+
+    /**
      * Get the profile registry.
      *
      * @return \Zenstruck\Backup\ProfileRegistry

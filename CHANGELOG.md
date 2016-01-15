@@ -2,6 +2,7 @@
 
 ## 0.4.0 (upcoming)
 
+- Add default profile configuration
 - Better feedback when running command
 
 ## 0.3.0 (released 2016-01-15)
