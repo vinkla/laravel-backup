@@ -48,6 +48,8 @@ class RunCommand extends AbstractCommand
 
             $profile = $registry->get((string) $this->argument('profile'));
 
+            $this->info('Backup initiated! This may take a while...');
+
             $this->executor->backup($profile, $this->option('clear'));
 
             $this->info('Profile was successfully backed up!');
