@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.0 (released 2016-01-15)
+
+- Simplified and made it more extensible
+
 ## 0.2.0 (released 2016-01-08)
 
 - Refactor and code cleanup
