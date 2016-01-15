@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.0 (upcoming)
+
+- Better feedback when running command
+
 ## 0.3.0 (released 2016-01-15)
 
 - Simplified and made it more extensible
