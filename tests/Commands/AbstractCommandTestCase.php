@@ -11,10 +11,12 @@
 
 namespace Vinkla\Tests\Backup\Commands;
 
+use ReflectionClass;
 use Vinkla\Backup\ProfileBuilderFactory;
 use Vinkla\Backup\ProfileRegistryFactory;
 use Vinkla\Tests\Backup\AbstractTestCase;
 use Zenstruck\Backup\Executor;
+use Zenstruck\Backup\ProfileRegistry;
 
 /**
  * This is the abstract command test case class.
@@ -32,6 +34,17 @@ abstract class AbstractCommandTestCase extends AbstractTestCase
 
         $this->assertNotNull($command->getDescription());
         $this->assertTrue(is_string($command->getDescription()));
+    }
+
+    public function testGetRegistry()
+    {
+        $rc = new ReflectionClass($this->getCommand());
+        $method = $rc->getMethod('getRegistry');
+        $method->setAccessible(true);
+
+        $registry = $method->invokeArgs($this->getCommand(), []);
+
+        $this->assertInstanceOf(ProfileRegistry::class, $registry);
     }
 
     abstract public function getCommand();
