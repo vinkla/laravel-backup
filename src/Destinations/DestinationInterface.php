@@ -11,32 +11,24 @@
 
 namespace Vinkla\Backup\Destinations;
 
-use Zenstruck\Backup\Destination\StreamDestination;
-
 /**
- * This is the local destination class.
+ * This is the destination interface.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class LocalDestination implements DestinationInterface
+interface DestinationInterface
 {
     /**
      * Bootstrap the destination.
      *
-     * @return \Zenstruck\Backup\Destination\StreamDestination
+     * @return \Zenstruck\Backup\Destination
      */
-    public function bootstrap()
-    {
-        return new StreamDestination($this->getName(), storage_path('backups'));
-    }
+    public function bootstrap();
 
     /**
      * Get the destination name.
      *
      * @return string
      */
-    public function getName()
-    {
-        return 'local';
-    }
+    public function getName();
 }

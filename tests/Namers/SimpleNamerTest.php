@@ -12,7 +12,6 @@
 namespace Vinkla\Tests\Backup\Namers;
 
 use Vinkla\Backup\Namers\SimpleNamer;
-use Vinkla\Tests\Backup\AbstractFactoryTestCase;
 use Zenstruck\Backup\Namer\SimpleNamer as Namer;
 
 /**
@@ -20,14 +19,14 @@ use Zenstruck\Backup\Namer\SimpleNamer as Namer;
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class SimpleNamerTest extends AbstractFactoryTestCase
+class SimpleNamerTest extends AbstractNamerTestCase
 {
     public function testBootstrap()
     {
-        $this->assertInstanceOf(Namer::class, $this->getFactory()->bootstrap());
+        $this->assertInstanceOf(Namer::class, $this->getNamer()->bootstrap());
     }
 
-    public function getFactory()
+    public function getNamer()
     {
         return new SimpleNamer();
     }

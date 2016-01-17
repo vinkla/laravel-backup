@@ -12,7 +12,6 @@
 namespace Vinkla\Tests\Backup\Namers;
 
 use Vinkla\Backup\Namers\TimestampNamer;
-use Vinkla\Tests\Backup\AbstractFactoryTestCase;
 use Zenstruck\Backup\Namer\TimestampNamer as Namer;
 
 /**
@@ -20,14 +19,14 @@ use Zenstruck\Backup\Namer\TimestampNamer as Namer;
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class TimestampNamerTest extends AbstractFactoryTestCase
+class TimestampNamerTest extends AbstractNamerTestCase
 {
     public function testBootstrap()
     {
-        $this->assertInstanceOf(Namer::class, $this->getFactory()->bootstrap());
+        $this->assertInstanceOf(Namer::class, $this->getNamer()->bootstrap());
     }
 
-    public function getFactory()
+    public function getNamer()
     {
         return new TimestampNamer();
     }

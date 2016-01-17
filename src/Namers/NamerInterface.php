@@ -11,32 +11,24 @@
 
 namespace Vinkla\Backup\Namers;
 
-use Zenstruck\Backup\Namer\TimestampNamer as Namer;
-
 /**
- * This is timestamp namer class.
+ * This is the namer interface.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class TimestampNamer implements NamerInterface
+interface NamerInterface
 {
     /**
      * Bootstrap the namer.
      *
-     * @return \Zenstruck\Backup\Namer\TimestampNamer
+     * @return \Zenstruck\Backup\Namer
      */
-    public function bootstrap()
-    {
-        return new Namer($this->getName());
-    }
+    public function bootstrap();
 
     /**
      * Get the namer name.
      *
      * @return string
      */
-    public function getName()
-    {
-        return 'timestamp';
-    }
+    public function getName();
 }

@@ -12,7 +12,6 @@
 namespace Vinkla\Tests\Backup\Processors;
 
 use Vinkla\Backup\Processors\GzipProcessor;
-use Vinkla\Tests\Backup\AbstractFactoryTestCase;
 use Zenstruck\Backup\Processor\GzipArchiveProcessor;
 
 /**
@@ -20,14 +19,14 @@ use Zenstruck\Backup\Processor\GzipArchiveProcessor;
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class GzipProcessorTest extends AbstractFactoryTestCase
+class GzipProcessorTest extends AbstractProcessorTestCase
 {
     public function testBootstrap()
     {
-        $this->assertInstanceOf(GzipArchiveProcessor::class, $this->getFactory()->bootstrap());
+        $this->assertInstanceOf(GzipArchiveProcessor::class, $this->getProcessor()->bootstrap());
     }
 
-    public function getFactory()
+    public function getProcessor()
     {
         return new GzipProcessor();
     }

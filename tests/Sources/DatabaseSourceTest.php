@@ -14,29 +14,18 @@ namespace Vinkla\Tests\Backup\Sources;
 use Illuminate\Contracts\Config\Repository;
 use ReflectionClass;
 use Vinkla\Backup\Sources\DatabaseSource;
-use Vinkla\Tests\Backup\AbstractFactoryTestCase;
+use Zenstruck\Backup\Source\MySqlDumpSource;
 
 /**
  * This is the mysql dump source test class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class DatabaseSourceTest extends AbstractFactoryTestCase
+class DatabaseSourceTest extends AbstractSourceTestCase
 {
-    public function getFactory()
+    public function testBootstrap()
     {
-        return new DatabaseSource($this->app->config);
-    }
-
-    public function testConfig()
-    {
-        $rc = new ReflectionClass($this->getFactory());
-        $property = $rc->getProperty('config');
-        $property->setAccessible(true);
-
-        $config = $property->getValue($this->getFactory());
-
-        $this->assertInstanceOf(Repository::class, $config);
+        $this->assertInstanceOf(MySqlDumpSource::class, $this->getSource()->bootstrap());
     }
 
     /**
@@ -46,6 +35,22 @@ class DatabaseSourceTest extends AbstractFactoryTestCase
     {
         $this->app->config->set('database.default', 'sqlite');
 
-        $this->getFactory()->bootstrap();
+        $this->getSource()->bootstrap();
+    }
+
+    public function testConfig()
+    {
+        $rc = new ReflectionClass($this->getSource());
+        $property = $rc->getProperty('config');
+        $property->setAccessible(true);
+
+        $config = $property->getValue($this->getSource());
+
+        $this->assertInstanceOf(Repository::class, $config);
+    }
+
+    public function getSource()
+    {
+        return new DatabaseSource($this->app->config);
     }
 }

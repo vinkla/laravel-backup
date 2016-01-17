@@ -12,7 +12,6 @@
 namespace Vinkla\Tests\Backup\Sources;
 
 use Vinkla\Backup\Sources\UploadsSource;
-use Vinkla\Tests\Backup\AbstractFactoryTestCase;
 use Zenstruck\Backup\Source\RsyncSource;
 
 /**
@@ -20,14 +19,14 @@ use Zenstruck\Backup\Source\RsyncSource;
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class UploadsSourceTest extends AbstractFactoryTestCase
+class UploadsSourceTest extends AbstractSourceTestCase
 {
     public function testBootstrap()
     {
-        $this->assertInstanceOf(RsyncSource::class, $this->getFactory()->bootstrap());
+        $this->assertInstanceOf(RsyncSource::class, $this->getSource()->bootstrap());
     }
 
-    public function getFactory()
+    public function getSource()
     {
         return new UploadsSource();
     }

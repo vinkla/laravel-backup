@@ -11,7 +11,6 @@
 
 namespace Vinkla\Backup\Namers;
 
-use Vinkla\Backup\FactoryInterface;
 use Zenstruck\Backup\Namer\SimpleNamer as Namer;
 
 /**
@@ -19,7 +18,7 @@ use Zenstruck\Backup\Namer\SimpleNamer as Namer;
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class SimpleNamer implements FactoryInterface
+class SimpleNamer implements NamerInterface
 {
     /**
      * Bootstrap the namer.
