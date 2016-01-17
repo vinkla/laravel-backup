@@ -11,7 +11,10 @@
 
 namespace Vinkla\Tests\Backup\Commands;
 
+use Vinkla\Backup\ProfileBuilderFactory;
+use Vinkla\Backup\ProfileRegistryFactory;
 use Vinkla\Tests\Backup\AbstractTestCase;
+use Zenstruck\Backup\Executor;
 
 /**
  * This is the abstract command test case class.
@@ -32,4 +35,16 @@ abstract class AbstractCommandTestCase extends AbstractTestCase
     }
 
     abstract public function getCommand();
+
+    public function getExecutor()
+    {
+        return new Executor($this->app['log']);
+    }
+
+    public function getRegistry()
+    {
+        $builder = new ProfileBuilderFactory($this->app);
+
+        return new ProfileRegistryFactory($builder);
+    }
 }

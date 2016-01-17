@@ -11,10 +11,7 @@
 
 namespace Vinkla\Tests\Backup\Commands;
 
-use Mockery;
 use Vinkla\Backup\Commands\RunCommand;
-use Vinkla\Backup\ProfileRegistryFactory;
-use Zenstruck\Backup\Executor;
 
 /**
  * This is the run command test class.
@@ -25,13 +22,10 @@ class RunCommandTest extends AbstractCommandTestCase
 {
     public function getCommand()
     {
-        $registry = Mockery::mock(ProfileRegistryFactory::class);
-        $executor = new Executor($this->app['log']);
-
         return new RunCommand(
             $this->app->config,
-            $registry,
-            $executor
+            $this->getRegistry(),
+            $this->getExecutor()
         );
     }
 }

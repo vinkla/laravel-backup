@@ -11,10 +11,7 @@
 
 namespace Vinkla\Tests\Backup\Commands;
 
-use Mockery;
 use Vinkla\Backup\Commands\ListCommand;
-use Vinkla\Backup\ProfileRegistryFactory;
-use Zenstruck\Backup\Executor;
 
 /**
  * This is the list command test class.
@@ -25,13 +22,10 @@ class ListCommandTest extends AbstractCommandTestCase
 {
     public function getCommand()
     {
-        $registry = Mockery::mock(ProfileRegistryFactory::class);
-        $executor = new Executor($this->app['log']);
-
         return new ListCommand(
             $this->app->config,
-            $registry,
-            $executor
+            $this->getRegistry(),
+            $this->getExecutor()
         );
     }
 }
