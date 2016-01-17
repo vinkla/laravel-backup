@@ -12,6 +12,7 @@
 namespace Vinkla\Tests\Backup;
 
 use Vinkla\Backup\ProfileBuilderFactory;
+use Zenstruck\Backup\ProfileBuilder;
 
 /**
  * This is the profile builder factory test class.
@@ -20,6 +21,34 @@ use Vinkla\Backup\ProfileBuilderFactory;
  */
 class ProfileBuilderFactoryTest extends AbstractTestCase
 {
+    public function testMakeStandard()
+    {
+        $factory = $this->getProfileBuilderFactory();
+
+        $return = $factory->make([
+            'sources' => [
+                'Vinkla\Backup\Sources\DatabaseSource',
+                'Vinkla\Backup\Sources\UploadsSource',
+            ],
+
+            'destinations' => [
+                'Vinkla\Backup\Destinations\LocalDestination',
+            ],
+
+            'processors' => [
+                'Vinkla\Backup\Processors\GzipProcessor',
+                'Vinkla\Backup\Processors\ZipProcessor',
+            ],
+
+            'namers' => [
+                'Vinkla\Backup\Namers\SimpleNamer',
+                'Vinkla\Backup\Namers\TimestampNamer',
+            ],
+        ]);
+
+        $this->assertInstanceOf(ProfileBuilder::class, $return);
+    }
+
     /**
      * @expectedException \InvalidArgumentException
      */
