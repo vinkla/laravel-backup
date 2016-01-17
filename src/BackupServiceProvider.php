@@ -11,7 +11,7 @@
 
 namespace Vinkla\Backup;
 
-use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Container\Container as Application;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
@@ -42,7 +42,7 @@ class BackupServiceProvider extends ServiceProvider
     /**
      * Setup the config.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \Illuminate\Contracts\Container\Container $app
      *
      * @return void
      */
@@ -77,7 +77,7 @@ class BackupServiceProvider extends ServiceProvider
     /**
      * Register the backup executor.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \Illuminate\Contracts\Container\Container $app
      *
      * @return void
      */
@@ -95,7 +95,7 @@ class BackupServiceProvider extends ServiceProvider
     /**
      * Register the builder.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \Illuminate\Contracts\Container\Container $app
      *
      * @return void
      */
@@ -111,7 +111,7 @@ class BackupServiceProvider extends ServiceProvider
     /**
      * Register the registry.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \Illuminate\Contracts\Container\Container $app
      *
      * @return void
      */
@@ -129,7 +129,7 @@ class BackupServiceProvider extends ServiceProvider
     /**
      * Register the sources.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \Illuminate\Contracts\Container\Container $app
      *
      * @return void
      */
@@ -145,7 +145,7 @@ class BackupServiceProvider extends ServiceProvider
     /**
      * Register the list command.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \Illuminate\Contracts\Container\Container $app
      *
      * @return void
      */
@@ -163,7 +163,7 @@ class BackupServiceProvider extends ServiceProvider
     /**
      * Register the run command.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $app
+     * @param \Illuminate\Contracts\Container\Container $app
      *
      * @return void
      */

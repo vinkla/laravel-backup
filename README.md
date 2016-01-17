@@ -3,7 +3,7 @@ Laravel Backup
 
 ![backup](https://cloud.githubusercontent.com/assets/499192/11957534/9ecc53ee-a8c2-11e5-8ee6-24bc8c0ac6d4.png)
 
-A backup manager for Laravel built on top of [Kevin Bond's](https://github.com/kbond) [backup](https://github.com/kbond/php-backup) package.
+A backup manager for Laravel and Lumen built on top of [Kevin Bond's](https://github.com/kbond) [backup](https://github.com/kbond/php-backup) package.
 
 ```bash
 $ php artisan backup:run

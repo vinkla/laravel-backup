@@ -5,6 +5,7 @@
 - Add default profile configuration
 - Better feedback when running command
 - Add more interfaces
+- Lumen 5.2 support
 
 ## 0.3.0 (released 2016-01-15)
 
