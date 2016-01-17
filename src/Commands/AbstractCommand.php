@@ -69,8 +69,8 @@ abstract class AbstractCommand extends Command
      */
     protected function getProfileName()
     {
-        if ($this->input->hasArgument('profile')) {
-            return $this->input->getArgument('profile');
+        if (is_string($this->argument('profile'))) {
+            return $this->argument('profile');
         }
 
         return $this->config->get('backup.default');
