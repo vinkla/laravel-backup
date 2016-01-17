@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 0.4.0 (upcoming)
+## 0.4.0 (released 2016-01-17)
 
 - Add default profile configuration
 - Better feedback when running command
