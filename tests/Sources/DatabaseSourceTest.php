@@ -44,7 +44,7 @@ class DatabaseSourceTest extends AbstractFactoryTestCase
      */
     public function testBootstrapWithoutMysqlDriver()
     {
-        $this->app->config->set('database.driver', 'sqlite');
+        $this->app->config->set('database.default', 'sqlite');
 
         $this->getFactory()->bootstrap();
     }

@@ -22,6 +22,20 @@ use Vinkla\Backup\BackupServiceProvider;
 abstract class AbstractTestCase extends AbstractPackageTestCase
 {
     /**
+     * Setup the application environment.
+     *
+     * @param \Illuminate\Contracts\Foundation\Application $app
+     *
+     * @return void
+     */
+    protected function getEnvironmentSetUp($app)
+    {
+        parent::getEnvironmentSetUp($app);
+
+        $app->config->set('database.default', 'mysql');
+    }
+
+    /**
      * Get the service provider class.
      *
      * @param \Illuminate\Contracts\Foundation\Application $app

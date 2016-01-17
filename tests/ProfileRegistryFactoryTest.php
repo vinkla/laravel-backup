@@ -13,6 +13,7 @@ namespace Vinkla\Tests\Backup;
 
 use Vinkla\Backup\ProfileBuilderFactory;
 use Vinkla\Backup\ProfileRegistryFactory;
+use Zenstruck\Backup\ProfileRegistry;
 
 /**
  * This is the profile registry factory test class.
@@ -21,6 +22,43 @@ use Vinkla\Backup\ProfileRegistryFactory;
  */
 class ProfileRegistryFactoryTest extends AbstractTestCase
 {
+    public function testMakeStandard()
+    {
+        $factory = $this->getProfileRegistryFactory();
+
+        $return = $factory->make([
+            'profiles' => [
+                'main' => [
+                    'sources' => ['database', 'uploads'],
+                    'destinations' => ['local'],
+                    'processor' => 'gzip',
+                    'namer' => 'timestamp',
+                ],
+            ],
+
+            'sources' => [
+                'Vinkla\Backup\Sources\DatabaseSource',
+                'Vinkla\Backup\Sources\UploadsSource',
+            ],
+
+            'destinations' => [
+                'Vinkla\Backup\Destinations\LocalDestination',
+            ],
+
+            'processors' => [
+                'Vinkla\Backup\Processors\GzipProcessor',
+                'Vinkla\Backup\Processors\ZipProcessor',
+            ],
+
+            'namers' => [
+                'Vinkla\Backup\Namers\SimpleNamer',
+                'Vinkla\Backup\Namers\TimestampNamer',
+            ],
+        ]);
+
+        $this->assertInstanceOf(ProfileRegistry::class, $return);
+    }
+
     /**
      * @expectedException \InvalidArgumentException
      */
