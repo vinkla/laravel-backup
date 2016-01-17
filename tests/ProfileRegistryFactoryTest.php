@@ -26,35 +26,7 @@ class ProfileRegistryFactoryTest extends AbstractTestCase
     {
         $factory = $this->getProfileRegistryFactory();
 
-        $return = $factory->make([
-            'profiles' => [
-                'main' => [
-                    'sources' => ['database', 'uploads'],
-                    'destinations' => ['local'],
-                    'processor' => 'gzip',
-                    'namer' => 'timestamp',
-                ],
-            ],
-
-            'sources' => [
-                'Vinkla\Backup\Sources\DatabaseSource',
-                'Vinkla\Backup\Sources\UploadsSource',
-            ],
-
-            'destinations' => [
-                'Vinkla\Backup\Destinations\LocalDestination',
-            ],
-
-            'processors' => [
-                'Vinkla\Backup\Processors\GzipProcessor',
-                'Vinkla\Backup\Processors\ZipProcessor',
-            ],
-
-            'namers' => [
-                'Vinkla\Backup\Namers\SimpleNamer',
-                'Vinkla\Backup\Namers\TimestampNamer',
-            ],
-        ]);
+        $return = $factory->make($this->app->config->get('backup'));
 
         $this->assertInstanceOf(ProfileRegistry::class, $return);
     }

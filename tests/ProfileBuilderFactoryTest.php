@@ -25,26 +25,7 @@ class ProfileBuilderFactoryTest extends AbstractTestCase
     {
         $factory = $this->getProfileBuilderFactory();
 
-        $return = $factory->make([
-            'sources' => [
-                'Vinkla\Backup\Sources\DatabaseSource',
-                'Vinkla\Backup\Sources\UploadsSource',
-            ],
-
-            'destinations' => [
-                'Vinkla\Backup\Destinations\LocalDestination',
-            ],
-
-            'processors' => [
-                'Vinkla\Backup\Processors\GzipProcessor',
-                'Vinkla\Backup\Processors\ZipProcessor',
-            ],
-
-            'namers' => [
-                'Vinkla\Backup\Namers\SimpleNamer',
-                'Vinkla\Backup\Namers\TimestampNamer',
-            ],
-        ]);
+        $return = $factory->make($this->app->config->get('backup'));
 
         $this->assertInstanceOf(ProfileBuilder::class, $return);
     }
