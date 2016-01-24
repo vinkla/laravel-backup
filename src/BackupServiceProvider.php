@@ -34,7 +34,7 @@ class BackupServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->setupConfig($this->app);
+        $this->setupConfig();
 
         $this->commands(['command.backuplist', 'command.backuprun']);
     }
@@ -42,18 +42,16 @@ class BackupServiceProvider extends ServiceProvider
     /**
      * Setup the config.
      *
-     * @param \Illuminate\Contracts\Container\Container $app
-     *
      * @return void
      */
-    protected function setupConfig(Application $app)
+    protected function setupConfig()
     {
         $source = realpath(__DIR__.'/../config/backup.php');
 
-        if ($app instanceof LaravelApplication && $app->runningInConsole()) {
+        if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
             $this->publishes([$source => config_path('backup.php')]);
-        } elseif ($app instanceof LumenApplication) {
-            $app->configure('backup');
+        } elseif ($this->app instanceof LumenApplication) {
+            $this->app->configure('backup');
         }
 
         $this->mergeConfigFrom($source, 'backup');
