@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.1 (released 2016-01-30)
+
+- Improved service provider
+
 ## 0.4.0 (released 2016-01-17)
 
 - Add default profile configuration

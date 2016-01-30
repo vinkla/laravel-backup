@@ -11,7 +11,7 @@
 
 namespace Vinkla\Backup;
 
-use Illuminate\Contracts\Container\Container as Application;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
@@ -64,76 +64,68 @@ class BackupServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerExecutor($this->app);
-        $this->registerBuilder($this->app);
-        $this->registerRegistry($this->app);
-        $this->registerSources($this->app);
-        $this->registerRunCommand($this->app);
-        $this->registerListCommand($this->app);
+        $this->registerExecutor();
+        $this->registerBuilder();
+        $this->registerRegistry();
+        $this->registerSources();
+        $this->registerRunCommand();
+        $this->registerListCommand();
     }
 
     /**
      * Register the backup executor.
      *
-     * @param \Illuminate\Contracts\Container\Container $app
-     *
      * @return void
      */
-    protected function registerExecutor(Application $app)
+    protected function registerExecutor()
     {
-        $app->singleton('backup.executor', function ($app) {
+        $this->app->singleton('backup.executor', function (Container $app) {
             $logger = $app['log'];
 
             return new Executor($logger);
         });
 
-        $app->alias('backup.executor', Executor::class);
+        $this->app->alias('backup.executor', Executor::class);
     }
 
     /**
      * Register the builder.
      *
-     * @param \Illuminate\Contracts\Container\Container $app
-     *
      * @return void
      */
-    protected function registerBuilder(Application $app)
+    protected function registerBuilder()
     {
-        $app->singleton('backup.builder', function ($app) {
+        $this->app->singleton('backup.builder', function (Container $app) {
             return new ProfileBuilderFactory($app);
         });
 
-        $app->alias('backup.builder', ProfileBuilderFactory::class);
+        $this->app->alias('backup.builder', ProfileBuilderFactory::class);
     }
 
     /**
      * Register the registry.
      *
-     * @param \Illuminate\Contracts\Container\Container $app
-     *
      * @return void
      */
-    protected function registerRegistry(Application $app)
+    protected function registerRegistry()
     {
-        $app->singleton('backup.registry', function ($app) {
+        $this->app->singleton('backup.registry', function (Container $app) {
             $builder = $app['backup.builder'];
 
             return new ProfileRegistryFactory($builder);
         });
 
-        $app->alias('backup.registry', ProfileRegistryFactory::class);
+        $this->app->alias('backup.registry', ProfileRegistryFactory::class);
     }
 
     /**
      * Register the sources.
      *
-     * @param \Illuminate\Contracts\Container\Container $app
-     *
      * @return void
      */
-    protected function registerSources(Application $app)
+    protected function registerSources()
     {
-        $app->bind(DatabaseSource::class, function ($app) {
+        $this->app->bind(DatabaseSource::class, function (Container $app) {
             $config = $app['config'];
 
             return new DatabaseSource($config);
@@ -143,13 +135,11 @@ class BackupServiceProvider extends ServiceProvider
     /**
      * Register the list command.
      *
-     * @param \Illuminate\Contracts\Container\Container $app
-     *
      * @return void
      */
-    protected function registerListCommand(Application $app)
+    protected function registerListCommand()
     {
-        $app->singleton('command.backuplist', function ($app) {
+        $this->app->singleton('command.backuplist', function (Container $app) {
             $config = $app['config'];
             $registry = $app['backup.registry'];
             $executor = $app['backup.executor'];
@@ -161,13 +151,11 @@ class BackupServiceProvider extends ServiceProvider
     /**
      * Register the run command.
      *
-     * @param \Illuminate\Contracts\Container\Container $app
-     *
      * @return void
      */
-    protected function registerRunCommand(Application $app)
+    protected function registerRunCommand()
     {
-        $app->singleton('command.backuprun', function ($app) {
+        $this->app->singleton('command.backuprun', function (Container $app) {
             $config = $app['config'];
             $registry = $app['backup.registry'];
             $executor = $app['backup.executor'];
