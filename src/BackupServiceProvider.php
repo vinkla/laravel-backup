@@ -36,7 +36,7 @@ class BackupServiceProvider extends ServiceProvider
     {
         $this->setupConfig();
 
-        $this->commands(['command.backuplist', 'command.backuprun']);
+        $this->commands(['command.backup.list', 'command.backup.run']);
     }
 
     /**
@@ -139,7 +139,7 @@ class BackupServiceProvider extends ServiceProvider
      */
     protected function registerListCommand()
     {
-        $this->app->singleton('command.backuplist', function (Container $app) {
+        $this->app->singleton('command.backup.list', function (Container $app) {
             $config = $app['config'];
             $registry = $app['backup.registry'];
             $executor = $app['backup.executor'];
@@ -155,7 +155,7 @@ class BackupServiceProvider extends ServiceProvider
      */
     protected function registerRunCommand()
     {
-        $this->app->singleton('command.backuprun', function (Container $app) {
+        $this->app->singleton('command.backup.run', function (Container $app) {
             $config = $app['config'];
             $registry = $app['backup.registry'];
             $executor = $app['backup.executor'];
@@ -175,8 +175,8 @@ class BackupServiceProvider extends ServiceProvider
             'backup.builder',
             'backup.executor',
             'backup.registry',
-            'command.backuplist',
-            'command.backuprun',
+            'command.backup.list',
+            'command.backup.run',
         ];
     }
 }
