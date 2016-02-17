@@ -60,4 +60,14 @@ abstract class AbstractCommandTestCase extends AbstractTestCase
 
         return new ProfileRegistryFactory($builder);
     }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testExecuteWithoutProfile()
+    {
+        $command = $this->getCommand();
+
+        $this->artisan($command->getName());
+    }
 }
