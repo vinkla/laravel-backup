@@ -18,7 +18,7 @@ $ php artisan backup:list
 +------------------------------------------------+---------+---------------------+
 ```
 
-[![Build Status](https://img.shields.io/travis/vinkla/backup/master.svg?style=flat)](https://travis-ci.org/vinkla/backup)
+[![Build Status](https://img.shields.io/travis/vinkla/laravel-backup/master.svg?style=flat)](https://travis-ci.org/vinkla/laravel-backup)
 [![StyleCI](https://styleci.io/repos/48389801/shield?style=flat)](https://styleci.io/repos/48389801)
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/vinkla/backup.svg?style=flat)](https://scrutinizer-ci.com/g/vinkla/backup/code-structure)
 [![Quality Score](https://img.shields.io/scrutinizer/g/vinkla/backup.svg?style=flat)](https://scrutinizer-ci.com/g/vinkla/backup)
