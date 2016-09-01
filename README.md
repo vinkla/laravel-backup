@@ -29,7 +29,7 @@ $ php artisan backup:list
 Require this package, with [Composer](https://getcomposer.org/), in the root directory of your project.
 
 ```bash
-composer require vinkla/backup
+$ composer require vinkla/backup
 ```
 
 Add the service provider to `config/app.php` in the `providers` array.
@@ -43,7 +43,7 @@ Vinkla\Backup\BackupServiceProvider::class
 Laravel Backup requires connection configuration. To get started, you'll need to publish all vendor assets:
 
 ```bash
-php artisan vendor:publish
+$ php artisan vendor:publish
 ```
 
 This will create a `config/backup.php` file in your app that you can modify to set your configuration. Also, make sure you check for changes to the original config file in this package between releases.
