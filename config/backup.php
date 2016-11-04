@@ -58,8 +58,8 @@ return [
     */
 
     'sources' => [
-        'Vinkla\Backup\Sources\DatabaseSource',
-        'Vinkla\Backup\Sources\UploadsSource',
+        Vinkla\Backup\Sources\DatabaseSource::class,
+        Vinkla\Backup\Sources\UploadsSource::class,
     ],
 
     /*
@@ -74,7 +74,7 @@ return [
     */
 
     'destinations' => [
-        'Vinkla\Backup\Destinations\LocalDestination',
+        Vinkla\Backup\Destinations\LocalDestination::class,
     ],
 
     /*
@@ -88,8 +88,8 @@ return [
     */
 
     'processors' => [
-        'Vinkla\Backup\Processors\GzipProcessor',
-        'Vinkla\Backup\Processors\ZipProcessor',
+        Vinkla\Backup\Processors\GzipProcessor::class,
+        Vinkla\Backup\Processors\ZipProcessor::class,
     ],
 
     /*
@@ -103,8 +103,8 @@ return [
     */
 
     'namers' => [
-        'Vinkla\Backup\Namers\SimpleNamer',
-        'Vinkla\Backup\Namers\TimestampNamer',
+        Vinkla\Backup\Namers\SimpleNamer::class,
+        Vinkla\Backup\Namers\TimestampNamer::class,
     ],
 
 ];
