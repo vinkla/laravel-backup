@@ -25,9 +25,9 @@ class ProfileBuilderFactoryTest extends AbstractTestCase
     {
         $factory = $this->getProfileBuilderFactory();
 
-        $return = $factory->make($this->app->config->get('backup'));
+        $builder = $factory->make($this->app->config->get('backup'));
 
-        $this->assertInstanceOf(ProfileBuilder::class, $return);
+        $this->assertInstanceOf(ProfileBuilder::class, $builder);
     }
 
     /**

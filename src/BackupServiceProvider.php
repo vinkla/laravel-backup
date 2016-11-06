@@ -15,10 +15,10 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
-use Vinkla\Backup\Commands\ListCommand;
-use Vinkla\Backup\Commands\RunCommand;
 use Vinkla\Backup\Sources\DatabaseSource;
 use Zenstruck\Backup\Executor;
+use Zenstruck\Backup\ProfileBuilder;
+use Zenstruck\Backup\ProfileRegistry;
 
 /**
  * This is the backup service provider class.
@@ -65,15 +65,14 @@ class BackupServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerExecutor();
-        $this->registerBuilder();
-        $this->registerRegistry();
-        $this->registerSources();
-        $this->registerRunCommand();
-        $this->registerListCommand();
+        $this->registerProfileBuilder();
+        $this->registerProfileRegistry();
+        $this->registerDatabaseSource();
+        $this->registerBackup();
     }
 
     /**
-     * Register the backup executor.
+     * Register the executor class.
      *
      * @return void
      */
@@ -89,41 +88,48 @@ class BackupServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the builder.
+     * Register the profile builder class.
      *
      * @return void
      */
-    protected function registerBuilder()
+    protected function registerProfileBuilder()
     {
         $this->app->singleton('backup.builder', function (Container $app) {
-            return new ProfileBuilderFactory($app);
+            $config = $app['config']['backup'];
+
+            $factory = new ProfileBuilderFactory($app);
+
+            return $factory->make($config);
         });
 
-        $this->app->alias('backup.builder', ProfileBuilderFactory::class);
+        $this->app->alias('backup.builder', ProfileBuilder::class);
     }
 
     /**
-     * Register the registry.
+     * Register the profile registry class.
      *
      * @return void
      */
-    protected function registerRegistry()
+    protected function registerProfileRegistry()
     {
         $this->app->singleton('backup.registry', function (Container $app) {
+            $config = $app['config']['backup'];
             $builder = $app['backup.builder'];
 
-            return new ProfileRegistryFactory($builder);
+            $factory = new ProfileRegistryFactory($builder);
+
+            return $factory->make($config);
         });
 
-        $this->app->alias('backup.registry', ProfileRegistryFactory::class);
+        $this->app->alias('backup.registry', ProfileRegistry::class);
     }
 
     /**
-     * Register the sources.
+     * Register the database source class.
      *
      * @return void
      */
-    protected function registerSources()
+    protected function registerDatabaseSource()
     {
         $this->app->bind(DatabaseSource::class, function (Container $app) {
             $config = $app['config'];
@@ -133,35 +139,21 @@ class BackupServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the list command.
+     * Register the backup class.
      *
      * @return void
      */
-    protected function registerListCommand()
+    protected function registerBackup()
     {
-        $this->app->singleton('command.backup.list', function (Container $app) {
+        $this->app->singleton('backup', function (Container $app) {
             $config = $app['config'];
             $registry = $app['backup.registry'];
             $executor = $app['backup.executor'];
 
-            return new ListCommand($config, $registry, $executor);
+            return new Backup($config, $registry, $executor);
         });
-    }
 
-    /**
-     * Register the run command.
-     *
-     * @return void
-     */
-    protected function registerRunCommand()
-    {
-        $this->app->singleton('command.backup.run', function (Container $app) {
-            $config = $app['config'];
-            $registry = $app['backup.registry'];
-            $executor = $app['backup.executor'];
-
-            return new RunCommand($config, $registry, $executor);
-        });
+        $this->app->alias('backup', Backup::class);
     }
 
     /**
@@ -172,11 +164,10 @@ class BackupServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
+            'backup',
             'backup.builder',
             'backup.executor',
             'backup.registry',
-            'command.backup.list',
-            'command.backup.run',
         ];
     }
 }

@@ -26,9 +26,9 @@ class ProfileRegistryFactoryTest extends AbstractTestCase
     {
         $factory = $this->getProfileRegistryFactory();
 
-        $return = $factory->make($this->app->config->get('backup'));
+        $registry = $factory->make($this->app->config->get('backup'));
 
-        $this->assertInstanceOf(ProfileRegistry::class, $return);
+        $this->assertInstanceOf(ProfileRegistry::class, $registry);
     }
 
     /**
@@ -116,6 +116,8 @@ class ProfileRegistryFactoryTest extends AbstractTestCase
     protected function getProfileRegistryFactory()
     {
         $builder = new ProfileBuilderFactory($this->app);
+
+        $builder = $builder->make($this->app->config->get('backup'));
 
         return new ProfileRegistryFactory($builder);
     }

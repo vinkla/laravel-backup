@@ -23,20 +23,20 @@ use Zenstruck\Backup\ProfileRegistry;
 class ProfileRegistryFactory
 {
     /**
-     * The profile builder factory.
+     * The profile builder.
      *
-     * @var \Vinkla\Backup\ProfileBuilderFactory
+     * @var \Zenstruck\Backup\ProfileBuilder
      */
     protected $builder;
 
     /**
      * Create a new profile registry factory instance.
      *
-     * @param \Vinkla\Backup\ProfileBuilderFactory $builder
+     * @param \Zenstruck\Backup\ProfileBuilder $builder
      *
      * @return void
      */
-    public function __construct(ProfileBuilderFactory $builder)
+    public function __construct(ProfileBuilder $builder)
     {
         $this->builder = $builder;
     }
@@ -52,9 +52,7 @@ class ProfileRegistryFactory
     {
         $config = $this->getConfig($config);
 
-        $builder = $this->createBuilder($config);
-
-        return $this->getProfileRegistry($builder, $config);
+        return $this->getProfileRegistry($config);
     }
 
     /**
@@ -86,31 +84,18 @@ class ProfileRegistryFactory
     }
 
     /**
-     * Create a new profile builder.
-     *
-     * @param array $config
-     *
-     * @return \Zenstruck\Backup\ProfileBuilder
-     */
-    protected function createBuilder(array $config)
-    {
-        return $this->builder->make($config);
-    }
-
-    /**
      * Get the profile registry.
      *
-     * @param \Zenstruck\Backup\ProfileBuilder $builder
      * @param array $config
      *
      * @return \Zenstruck\Backup\ProfileRegistry
      */
-    protected function getProfileRegistry(ProfileBuilder $builder, array $config)
+    protected function getProfileRegistry(array $config)
     {
         $registry = new ProfileRegistry();
 
         foreach (array_get($config, 'profiles') as $name => $profile) {
-            $profile = $builder->create(
+            $profile = $this->builder->create(
                 $name,
                 array_get($profile, 'scratch_dir', storage_path('backups')),
                 array_get($profile, 'processor'),
