@@ -89,7 +89,7 @@ class Backup
      */
     public function run($clear = false)
     {
-        $profile = $this->profile ?: $this->config()->get('backup.default');
+        $profile = $this->profile ?: $this->config->get('backup.default');
 
         $this->executor->backup($profile, $clear);
     }
