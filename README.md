@@ -44,23 +44,23 @@ This will create a `config/backup.php` file in your app that you can modify to s
 
 > Out of the box the backups will be stored in `storage/backups`. To prevent the backups from being committed, be sure to add the directory to the `.gitignore` file.
 
-#### Profiles
+#### Backup Profiles
 
 The profiles array allows you to setup multiple backup profiles. Example configuration has been included, but you may add as many profiles as you would like.
 
-#### Sources
+#### Backup Sources
 
 What to backup (i.e. database/files). The source fetches files and copies them to a "scratch" directory. These files are typically persisted between backups (improves rsync performance) but can be cleared by the executor.
 
-#### Destinations
+#### Backup Destinations
 
 Where to send the backup i.e. filesystem, S3, Dropbox, etc. We have provided a default local destination that will save the backup file the Laravel's storage directory (storage/backups).
 
-#### Processors
+#### Backup Processors
 
 The processors converts the backup to a single file (i.e. zip/tar.gz). The processors use a namer to name the file (read more below).
 
-#### Namers
+#### Backup Namers
 
 Generates the backup filename to be used by the processors. Below we've provided default namers. Of course, you may setup custom namers.
 
@@ -109,16 +109,18 @@ You can also specify which profile you want to backup with the `profile()` metho
 $backup->profile('alternative')->run();
 ```
 
-If you're curious on how you can write your own [destinations](#destinations), [namers](#namers), [processors](#processors) and [sources](#sources), we suggest you checkout the source code:
+## Custom
+
+If you're curious on how you can write your own [destinations](#backup-destinations), [namers](#backup-namers), [processors](#backup-processors) and [sources](#backup-sources), we suggest you checkout the source code:
 
 - [LocalDestination](src/Destinations/LocalDestination.php)
 - [SimpleNamer](src/Namers/SimpleNamer.php)
-- [UploadsSource](src/Sources/UploadsSource.php)
 - [ZipProcessor](src/Processors/ZipProcessor.php)
+- [UploadsSource](src/Sources/UploadsSource.php)
 
 Once you've registered your new class in the config it will be ready to use in the profiles array.
 
-The `getName()` method should return a lowercase string which you can later use in the profile array.
+> The `getName()` method should return a lowercase string which you can later use in the profile array.
 
 ## Documentation
 
