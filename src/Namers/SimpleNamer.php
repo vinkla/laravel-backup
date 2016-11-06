@@ -25,7 +25,7 @@ class SimpleNamer implements NamerInterface
      *
      * @return \Zenstruck\Backup\Namer\SimpleNamer
      */
-    public function bootstrap()
+    public function bootstrap(): Namer
     {
         return new Namer($this->getName());
     }
@@ -35,7 +35,7 @@ class SimpleNamer implements NamerInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'simple';
     }

@@ -48,7 +48,7 @@ class DatabaseSource implements SourceInterface
      *
      * @return \Zenstruck\Backup\Source\MySqlDumpSource
      */
-    public function bootstrap()
+    public function bootstrap(): MySqlDumpSource
     {
         $connection = $this->getDatabaseConnection();
 
@@ -72,7 +72,7 @@ class DatabaseSource implements SourceInterface
      *
      * @return string
      */
-    public function getDatabaseConnection()
+    protected function getDatabaseConnection(): string
     {
         return $this->config->get('database.default');
     }
@@ -82,7 +82,7 @@ class DatabaseSource implements SourceInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'database';
     }

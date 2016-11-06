@@ -67,13 +67,27 @@ class Backup
     }
 
     /**
+     * Get the backup profile.
+     *
+     * @return string
+     */
+    public function getProfile(): string
+    {
+        if ($this->profile) {
+            return $this->profile;
+        }
+
+        return $this->config->get('backup.default');
+    }
+
+    /**
      * Set the backup profile.
      *
      * @param string $profile
      *
      * @return $this
      */
-    public function profile($profile)
+    public function setProfile(string $profile)
     {
         $this->profile = $profile;
 
@@ -87,10 +101,8 @@ class Backup
      *
      * @return void
      */
-    public function run($clear = false)
+    public function run(bool $clear = false)
     {
-        $profile = $this->profile ?: $this->config->get('backup.default');
-
-        $this->executor->backup($profile, $clear);
+        $this->executor->backup($this->getProfile(), $clear);
     }
 }

@@ -48,7 +48,7 @@ class ProfileRegistryFactory
      *
      * @return \Zenstruck\Backup\ProfileRegistry
      */
-    public function make(array $config)
+    public function make(array $config): ProfileRegistry
     {
         $config = $this->getConfig($config);
 
@@ -64,7 +64,7 @@ class ProfileRegistryFactory
      *
      * @return array
      */
-    protected function getConfig(array $config)
+    protected function getConfig(array $config): array
     {
         if (!array_key_exists('profiles', $config)) {
             throw new InvalidArgumentException('Missing configuration key [profiles].');
@@ -90,7 +90,7 @@ class ProfileRegistryFactory
      *
      * @return \Zenstruck\Backup\ProfileRegistry
      */
-    protected function getProfileRegistry(array $config)
+    protected function getProfileRegistry(array $config): ProfileRegistry
     {
         $registry = new ProfileRegistry();
 

@@ -25,7 +25,7 @@ class GzipProcessor implements ProcessorInterface
      *
      * @return \Zenstruck\Backup\Processor\GzipArchiveProcessor
      */
-    public function bootstrap()
+    public function bootstrap(): GzipArchiveProcessor
     {
         return new GzipArchiveProcessor($this->getName());
     }
@@ -35,7 +35,7 @@ class GzipProcessor implements ProcessorInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'gzip';
     }

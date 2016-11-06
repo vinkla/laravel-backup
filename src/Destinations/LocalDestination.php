@@ -25,7 +25,7 @@ class LocalDestination implements DestinationInterface
      *
      * @return \Zenstruck\Backup\Destination\StreamDestination
      */
-    public function bootstrap()
+    public function bootstrap(): StreamDestination
     {
         return new StreamDestination($this->getName(), storage_path('backups'));
     }
@@ -35,7 +35,7 @@ class LocalDestination implements DestinationInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'local';
     }

@@ -25,7 +25,7 @@ class UploadsSource implements SourceInterface
      *
      * @return \Zenstruck\Backup\Source\RsyncSource
      */
-    public function bootstrap()
+    public function bootstrap(): RsyncSource
     {
         return new RsyncSource($this->getName(), public_path('uploads'));
     }
@@ -35,7 +35,7 @@ class UploadsSource implements SourceInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'uploads';
     }

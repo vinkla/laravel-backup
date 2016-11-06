@@ -48,7 +48,7 @@ class ProfileBuilderFactory
      *
      * @return \Zenstruck\Backup\ProfileBuilder
      */
-    public function make(array $config)
+    public function make(array $config): ProfileBuilder
     {
         $config = $this->getConfig($config);
 
@@ -64,7 +64,7 @@ class ProfileBuilderFactory
      *
      * @return array
      */
-    protected function getConfig(array $config)
+    protected function getConfig(array $config): array
     {
         $keys = ['sources', 'destinations', 'processors', 'namers'];
 
@@ -84,7 +84,7 @@ class ProfileBuilderFactory
      *
      * @return \Zenstruck\Backup\ProfileBuilder
      */
-    protected function getProfileBuilder(array $config)
+    protected function getProfileBuilder(array $config): ProfileBuilder
     {
         return new ProfileBuilder(
             $this->bootstrap(array_get($config, 'processors')),
@@ -101,7 +101,7 @@ class ProfileBuilderFactory
      *
      * @return object[]
      */
-    protected function bootstrap(array $classes)
+    protected function bootstrap(array $classes): array
     {
         foreach ($classes as $index => $class) {
             $classes[$index] = $this->app->make($class)->bootstrap();

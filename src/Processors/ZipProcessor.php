@@ -25,7 +25,7 @@ class ZipProcessor implements ProcessorInterface
      *
      * @return \Zenstruck\Backup\Processor\ZipArchiveProcessor
      */
-    public function bootstrap()
+    public function bootstrap(): ZipArchiveProcessor
     {
         return new ZipArchiveProcessor($this->getName());
     }
@@ -35,7 +35,7 @@ class ZipProcessor implements ProcessorInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'zip';
     }

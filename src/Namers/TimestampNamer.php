@@ -25,7 +25,7 @@ class TimestampNamer implements NamerInterface
      *
      * @return \Zenstruck\Backup\Namer\TimestampNamer
      */
-    public function bootstrap()
+    public function bootstrap(): Namer
     {
         return new Namer($this->getName());
     }
@@ -35,7 +35,7 @@ class TimestampNamer implements NamerInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'timestamp';
     }
