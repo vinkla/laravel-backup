@@ -85,6 +85,8 @@ class Foo
         $this->backup->run();
     }
 }
+
+App::make('Foo')->bar();
 ```
 
 To start the backup, use the `run()` method.
