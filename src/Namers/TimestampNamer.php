@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Vinkla\Backup\Namers;
 
 use Zenstruck\Backup\Namer\TimestampNamer as Namer;
