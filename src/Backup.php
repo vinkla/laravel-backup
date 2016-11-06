@@ -87,11 +87,23 @@ class Backup
      *
      * @param string $profile
      *
-     * @return $this
+     * @return void
      */
     public function setProfile(string $profile)
     {
         $this->profile = $profile;
+    }
+
+    /**
+     * Set the backup profile.
+     *
+     * @param string $profile
+     *
+     * @return $this
+     */
+    public function profile(string $profile): self
+    {
+        $this->setProfile($profile);
 
         return $this;
     }

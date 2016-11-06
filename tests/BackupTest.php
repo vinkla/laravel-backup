@@ -31,9 +31,11 @@ class BackupTest extends AbstractTestCase
 
         $this->assertSame('main', $backup->getProfile());
 
-        $backup->setProfile('alternative');
+        $backup->setProfile('secondary');
+        $this->assertSame('secondary', $backup->getProfile());
 
-        $this->assertSame('alternative', $backup->getProfile());
+        $backup->profile('tertiary');
+        $this->assertSame('tertiary', $backup->getProfile());
     }
 
     public function getBackup()
