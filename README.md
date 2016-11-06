@@ -107,7 +107,7 @@ You can also specify which profile you want to backup with the `profile()` metho
 $backup->profile('alternative')->run();
 ```
 
-If you're curious on how you can write your own destinations, namers, processors and sources you can checkout the source code.
+If you're curious on how you can write your own destinations, namers, processors and sources I suggest you checkout the source code:
 
 - [LocalDestination](src/Destinations/LocalDestination.php)
 - [SimpleNamer](src/Namers/SimpleNamer.php)
