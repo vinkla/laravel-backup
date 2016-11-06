@@ -35,8 +35,6 @@ class BackupServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->setupConfig();
-
-        $this->commands(['command.backup.list', 'command.backup.run']);
     }
 
     /**
