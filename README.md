@@ -2,19 +2,14 @@
 
 ![backup](https://cloud.githubusercontent.com/assets/499192/11957534/9ecc53ee-a8c2-11e5-8ee6-24bc8c0ac6d4.png)
 
-> A [backup manager](https://github.com/kbond/php-backup) for Laravel.
+> An easy-to-use [backup](https://github.com/kbond/php-backup) manager for Laravel.
 
-```bash
-$ php artisan backup:run
-Profile was successfully backed up!
+```php
+use Vinkla\Backup\Backup;
 
-$ php artisan backup:list
-+------------------------------------------------+---------+---------------------+
-| Key                                            | Size    | Created At          |
-+------------------------------------------------+---------+---------------------+
-| /var/www/storage/backups/20151222144908.tar.gz | 2500856 | 2015-12-22 13:49:08 |
-| /var/www/storage/backups/20151222144954.tar.gz | 5003001 | 2015-12-22 13:49:54 |
-+------------------------------------------------+---------+---------------------+
+$backup = new Backup();
+
+$backup->run();
 ```
 
 [![Build Status](https://img.shields.io/travis/vinkla/laravel-backup/master.svg?style=flat)](https://travis-ci.org/vinkla/laravel-backup)
@@ -71,24 +66,57 @@ Generates the backup filename to be used by the processors. Below we've provided
 
 ## Usage
 
-In order to run a backup use the command below.
+First you need to create a new `Vinkla\Backup\Backup` instance.
 
-```bash
-$ php artisan backup:run
-Profile was successfully backed up!
+```php
+use Vinkla\Backup\Backup;
+
+class Foo
+{
+    protected $backup;
+
+    public function __construct(Backup $backup)
+    {
+        $this->backup = $backup;
+    }
+
+    public function bar()
+    {
+        $this->backup->run();
+    }
+}
 ```
 
-If you want to list all your backups use the command below.
+To start the backup, use the `run()` method.
 
-```bash
-$ php artisan backup:list
-+------------------------------------------------+---------+---------------------+
-| Key                                            | Size    | Created At          |
-+------------------------------------------------+---------+---------------------+
-| /var/www/storage/backups/20151222144908.tar.gz | 2500856 | 2015-12-22 13:49:08 |
-| /var/www/storage/backups/20151222144954.tar.gz | 5003001 | 2015-12-22 13:49:54 |
-+------------------------------------------------+---------+---------------------+
+```php
+$backup->run();
 ```
+
+If you want to clear the files on the profile you can pass the a boolean to the `run()` method.
+
+```php
+$backup->run(true);
+```
+
+You can also specify which profile you want to backup with the `profile()` method.
+
+> If you don't specify any profile the backup manager will use your default profile.
+
+```php
+$backup->profile('alternative')->run();
+```
+
+If you're curious on how you can write your own destinations, namers, processors and sources you can checkout the source code.
+
+- [LocalDestination](src/Destinations/LocalDestination.php)
+- [SimpleNamer](src/Namers/SimpleNamer.php)
+- [UploadsSource](src/Sources/UploadsSource.php)
+- [ZipProcessor](src/Processors/ZipProcessor.php)
+
+Once you've registered your new class in the config it will be ready to use in the profiles array.
+
+The `getName()` method should return a lowercase string which you can later use in the profile array.
 
 ## Documentation
 
