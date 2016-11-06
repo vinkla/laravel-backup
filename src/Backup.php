@@ -103,6 +103,8 @@ class Backup
      */
     public function run(bool $clear = false)
     {
-        $this->executor->backup($this->getProfile(), $clear);
+        $profile = $this->registry->get($this->getProfile());
+
+        $this->executor->backup($profile, $clear);
     }
 }
