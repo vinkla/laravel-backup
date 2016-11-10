@@ -12,9 +12,9 @@
     ],
     "require": {
         "php": "^7.0",
-        "illuminate/console": "5.2.* || 5.3.*",
-        "illuminate/contracts": "5.2.* || 5.3.*",
-        "illuminate/support": "5.2.* || 5.3.*",
+        "illuminate/console": "5.3.*",
+        "illuminate/contracts": "5.3.*",
+        "illuminate/support": "5.3.*",
         "zenstruck/backup": "^1.2"
     },
     "require-dev": {
