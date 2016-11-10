@@ -37,7 +37,7 @@ return [
     'profiles' => [
 
         'main' => [
-            'sources' => ['database', 'uploads'],
+            'sources' => ['mysql', 'uploads'],
             'destinations' => ['local'],
             'processor' => 'gzip',
             'namer' => 'timestamp',
@@ -58,7 +58,7 @@ return [
     */
 
     'sources' => [
-        Vinkla\Backup\Sources\DatabaseSource::class,
+        Vinkla\Backup\Sources\MysqlDumpSource::class,
         Vinkla\Backup\Sources\UploadsSource::class,
     ],
 

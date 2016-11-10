@@ -15,19 +15,19 @@ namespace Vinkla\Tests\Backup\Sources;
 
 use Illuminate\Contracts\Config\Repository;
 use ReflectionClass;
-use Vinkla\Backup\Sources\DatabaseSource;
-use Zenstruck\Backup\Source\MySqlDumpSource;
+use Vinkla\Backup\Sources\MysqlDumpSource;
+use Zenstruck\Backup\Source\MySqlDumpSource as Source;
 
 /**
  * This is the mysql dump source test class.
  *
  * @author Vincent Klaiber <hello@vinkla.com>
  */
-class DatabaseSourceTest extends AbstractSourceTestCase
+class MysqlDumpSourceTest extends AbstractSourceTestCase
 {
     public function testBootstrap()
     {
-        $this->assertInstanceOf(MySqlDumpSource::class, $this->getSource()->bootstrap());
+        $this->assertInstanceOf(Source::class, $this->getSource()->bootstrap());
     }
 
     /**
@@ -53,6 +53,6 @@ class DatabaseSourceTest extends AbstractSourceTestCase
 
     public function getSource()
     {
-        return new DatabaseSource($this->app->config);
+        return new MysqlDumpSource($this->app->config);
     }
 }
