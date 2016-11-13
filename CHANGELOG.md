@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 2.0.0 (upcoming)
+## 2.0.0 (released 2016-11-13)
 
 - Added new backup class
 - Updated mysql dump source
