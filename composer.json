@@ -18,7 +18,7 @@
         "zenstruck/backup": "^1.2"
     },
     "require-dev": {
-        "graham-campbell/testbench": "^3.2",
+        "graham-campbell/testbench": "^3.3",
         "phpunit/phpunit": "^5.7"
     },
     "autoload": {
