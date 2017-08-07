@@ -17,7 +17,7 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application as LumenApplication;
-use Vinkla\Backup\Sources\DatabaseSource;
+use Vinkla\Backup\Sources\MysqlDumpSource;
 use Zenstruck\Backup\Executor;
 use Zenstruck\Backup\ProfileBuilder;
 use Zenstruck\Backup\ProfileRegistry;
@@ -67,7 +67,7 @@ class BackupServiceProvider extends ServiceProvider
         $this->registerExecutor();
         $this->registerProfileBuilder();
         $this->registerProfileRegistry();
-        $this->registerDatabaseSource();
+        $this->registerMysqlDumpSource();
         $this->registerBackup();
     }
 
@@ -129,12 +129,12 @@ class BackupServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerDatabaseSource()
+    protected function registerMysqlDumpSource()
     {
-        $this->app->bind(DatabaseSource::class, function (Container $app) {
+        $this->app->bind(MysqlDumpSource::class, function (Container $app) {
             $config = $app['config'];
 
-            return new DatabaseSource($config);
+            return new MysqlDumpSource($config);
         });
     }
 
