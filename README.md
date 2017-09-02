@@ -12,12 +12,6 @@ $backup = new Backup();
 $backup->run();
 ```
 
-[![Build Status](https://img.shields.io/travis/vinkla/laravel-backup/master.svg?style=flat)](https://travis-ci.org/vinkla/laravel-backup)
-[![StyleCI](https://styleci.io/repos/48389801/shield?style=flat)](https://styleci.io/repos/48389801)
-[![Coverage Status](https://img.shields.io/codecov/c/github/vinkla/laravel-backup.svg?style=flat)](https://codecov.io/github/vinkla/laravel-backup)
-[![Latest Version](https://img.shields.io/github/release/vinkla/backup.svg?style=flat)](https://github.com/vinkla/backup/releases)
-[![License](https://img.shields.io/packagist/l/vinkla/backup.svg?style=flat)](https://packagist.org/packages/vinkla/backup)
-
 ## Installation
 
 Require this package, with [Composer](https://getcomposer.org/), in the root directory of your project.
